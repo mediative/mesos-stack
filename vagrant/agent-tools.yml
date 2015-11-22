@@ -1,0 +1,27 @@
+---
+- name: Mesos agent nodes
+  sudo: True
+  gather_facts: False
+  hosts: mesos-agent
+  vars:
+    docker_users:
+      - { username: user1, password: secret }
+      - { username: user2, password: secret }
+    docker_registry:
+      vhost: docker.mesos.dev
+      http_secret: xohThie3niezae5kuVae9uom4eid0G
+      auth:
+        htpasswd:
+          realm: Mediative
+          credentials:
+            - { username: user1, password: secret }
+            - { username: user2, password: secret }
+      s3:
+        accesskey: AWS_ACCESS_KEY_ID
+        secretkey: AWS_SECRET_ACCESS_KEY
+        region: us-east-1
+        bucket: docker-registry-FIXME # S3 bucket where to store registry files; must exist
+  roles:
+    - { role: chronos-sync }
+    - { role: docker-registry }
+    - { role: docker-engine-auth }

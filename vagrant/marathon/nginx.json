@@ -1,0 +1,22 @@
+{
+  "container": {
+    "type": "DOCKER",
+    "docker": {
+      "image": "nginx",
+      "network": "BRIDGE",
+      "portMappings": [
+        { "containerPort": 80, "hostPort": 0, "protocol": "tcp" }
+      ]
+    }
+  },
+  "labels": {
+    "HAPROXY_0_VHOST": "nginx.mesos.dev",
+    "HAPROXY_0_REDIRECT_TO_HTTPS": "true",
+    "HAPROXY_0_MODE": "http"
+  },
+  "id": "nginx",
+  "instances": 1,
+  "cpus": 0.25,
+  "mem": 128,
+  "uris": []
+}

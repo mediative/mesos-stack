@@ -1,0 +1,7 @@
+---
+- name: Restart master services
+  service: name={{item}} state=restarted
+  with_items:
+    - marathon
+    - chronos
+    - mesos-master

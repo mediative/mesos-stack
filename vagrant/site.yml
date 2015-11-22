@@ -1,0 +1,58 @@
+---
+- name: Gather facts about all nodes
+  sudo: True
+  gather_facts: True
+  hosts: all
+
+- name: All nodes
+  sudo: True
+  gather_facts: False
+  hosts: all
+  roles:
+    - { role: common,
+        host_mappings: [
+          # Point to docker registry exposed via marathon-lb
+          { ip: '10.141.141.10', name: 'docker.mesos.dev' }
+        ]
+      }
+
+- name: Zookeeper nodes
+  sudo: True
+  gather_facts: False
+  hosts: zookeeper
+  roles:
+    - { role: java }
+    - { role: zookeeper }
+
+- name: Mesos master nodes
+  sudo: True
+  gather_facts: False
+  hosts: mesos-master
+  roles:
+    - { role: mesos }
+    - { role: mesos-master }
+    - { role: dcos-cli }
+
+- name: Mesos agent nodes
+  sudo: True
+  gather_facts: False
+  hosts: mesos-agent
+  roles:
+    - { role: java }
+    - { role: docker-engine }
+    - { role: mesos }
+    - { role: mesos-agent }
+
+- name: Mesos DNS nodes
+  sudo: True
+  gather_facts: False
+  hosts: mesos-dns
+  roles:
+    - { role: mesos-dns }
+
+- name: Marathon LB nodes
+  sudo: True
+  gather_facts: False
+  hosts: marathon-lb
+  roles:
+    - { role: marathon-lb, marathon_lb_pem: 'certificates/mesos.dev.pem' }

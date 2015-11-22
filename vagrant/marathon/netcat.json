@@ -1,0 +1,12 @@
+{  
+  "cmd": "netcat -l 2020",
+  "ports": [ 2020 ],
+  "labels": {
+    "HAPROXY_0_VHOST": "netcat.mesos.dev",
+    "HAPROXY_0_REDIRECT_TO_HTTPS": "false"
+  },
+  "id": "netcat",
+  "instances": 1,
+  "cpus": 0.1,
+  "mem": 128
+}

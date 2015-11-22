@@ -1,0 +1,20 @@
+---
+- name: Download release
+  get_url: url={{mesos_dns_url}} dest={{mesos_dns_bin}}.gz mode=0440
+
+# Extract keeping the original file to avoid redownloading every run
+- name: Extract binary
+  shell: gunzip --stdout {{mesos_dns_bin}}.gz > {{mesos_dns_bin}} creates={{mesos_dns_bin}}
+
+- name: Make executable
+  file: path={{mesos_dns_bin}} mode=755
+
+- name: Configure Mesos DNS
+  template: src={{item.template}} dest={{item.file}} mode=0644
+  with_items:
+    - { file: '/etc/mesos-dns.json', template: etc-mesos-dns.json.j2 }
+    - { file: '/etc/init/mesos-dns.conf', template: etc-init-mesos-dns.conf.j2 }
+  notify: Restart Mesos DNS service
+
+- name: Start Mesos DNS service
+  service: name=mesos-dns state=started enabled=yes

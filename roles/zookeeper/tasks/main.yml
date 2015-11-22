@@ -1,0 +1,20 @@
+---
+- name: Install zookeeper packages
+  apt: name={{item}} state=installed
+  with_items:
+    - zookeeperd
+    - zookeeper
+    - zookeeper-bin
+
+- name: Configure node ID
+  copy: content={{zoo_id}} dest=/etc/zookeeper/conf/myid mode=644
+  notify: Restart zookeeper
+
+- name: Add all nodes to zoo.cfg
+  lineinfile: dest=/etc/zookeeper/conf/zoo.cfg regexp='^server.{{zoo_id}}=' line="server.{{ hostvars[item].zoo_id }}={{item}}:2888:3888" state=present
+  when: hostvars[item].zoo_id is defined
+  with_items: groups['zookeeper']
+  notify: Restart zookeeper
+
+- name: Start zookeeper
+  service: name=zookeeper state=started enabled=yes

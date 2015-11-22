@@ -1,0 +1,12 @@
+---
+- name: Add Java PPA APT repo
+  apt_repository: repo="ppa:webupd8team/java"
+
+- name: Oracle license debconf selections
+  debconf: name='oracle-java8-installer' question='shared/accepted-oracle-license-v1-1' value='true' vtype='select'
+
+- name: Install Java 8
+  apt: name={{item}} state=installed
+  with_items:
+    - oracle-java8-installer
+    - oracle-java8-set-default

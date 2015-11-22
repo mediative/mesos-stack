@@ -1,0 +1,11 @@
+---
+## Mesos framework versions
+#
+# A `*` is added after the version when installing, which permits to leave out
+# version suffixes added by Mesosphere.
+#
+# To install the latest use `latest`, to install latest 0.11 use `0.11`.
+marathon_version: "0.11.1"
+chronos_version: "2.4.0"
+
+cluster_name: "Mediative Performance Network"

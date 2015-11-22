@@ -1,0 +1,5 @@
+*.swp
+.ansible/
+.vagrant/
+_book/
+node_modules/

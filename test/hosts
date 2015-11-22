@@ -1,0 +1,18 @@
+# Dummy ansible host file
+# Used for syntax checking Ansible files
+127.0.0.1 ansible_hostname=mesos-node-0 zoo_id=1 agent_attributes="zone:public" agent_resources="ports(*):[6000-60000]"
+
+[zookeeper]
+127.0.0.1
+
+[mesos-master]
+127.0.0.1
+
+[mesos-agent]
+127.0.0.1
+
+[mesos-dns]
+127.0.0.1
+
+[marathon-lb]
+127.0.0.1

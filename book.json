@@ -1,0 +1,19 @@
+{
+  "gitbook": "2.x.x",
+  "links": {
+    "sidebar": {
+      "Issues": "https://github.com/ypg-data/mesos-stack/issues",
+      "Source Code": "https://github.com/ypg-data/mesos-stack"
+    },
+    "sharing": {
+      "twitter": false,
+      "facebook": false,
+      "google": false,
+      "all": false
+    }
+  },
+  "plugins": [
+    "toc",
+    "mermaid-2"
+  ]
+}

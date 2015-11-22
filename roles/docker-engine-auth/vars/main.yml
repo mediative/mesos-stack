@@ -1,0 +1,18 @@
+---
+## Private Docker registries
+#
+# List of Docker registries to log into.
+#
+# For each registry specify the server, username, password and email. E.g.:
+#
+#     docker_credentials: []
+#       - server: docker.example.com
+#         username: pull-user
+#         password: secret
+#         email: pull-user@example.com
+#       - server: quay.io
+#         username: pull-user2
+#         password: secret
+#         email: pull-user2@example.com
+#
+docker_credentials: []

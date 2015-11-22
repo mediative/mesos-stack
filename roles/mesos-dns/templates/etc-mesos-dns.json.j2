@@ -1,0 +1,9 @@
+{
+  "zk": "{{ mesos_zk_url }}",
+  "masters": ["{{ groups['mesos-master'] | join(':5050", "') }}:5050"],
+  "refreshSeconds": 60,
+  "ttl": 60,
+  "domain": "mesos",
+  "port": 53,
+  "resolvers": ["8.8.8.8"]
+}

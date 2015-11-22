@@ -1,0 +1,16 @@
+---
+# The Marathon LB now seems to be the new way to load balance and proxy
+# requests to applications inside a Mesos cluster
+# - https://github.com/mesosphere/marathon-lb
+#
+# FIXME: Switch to docker image?
+#
+#  $ docker run --net host \
+#      -e HAPROXY_SSL_CERT="$(cat /etc/ssl/mesosphere.com.pem)" \
+#      mesosphere/marathon-lb sse \
+#      -m http://leader.mesos:8080
+marathon_lb_version: 1a2c54b3aea9d147107e51a7371ae4750159571d
+marathon_lb_url: "https://github.com/mesosphere/marathon-lb/archive/{{marathon_lb_version}}.zip"
+marathon_lb_zip: "/opt/marathon-lb-{{marathon_lb_version}}.zip"
+marathon_lb_bin: "/opt/marathon-lb-{{marathon_lb_version}}/marathon-update-haproxy.py"
+# marathon_lb_pem: "/path/to/mesosphere.com.pem"

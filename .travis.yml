@@ -1,0 +1,17 @@
+# Use container-based infrastructure
+sudo: false
+
+language: python
+python: "2.7"
+
+before_install:
+  - sudo apt-get update -qq
+  - sudo apt-get install -y curl
+
+install:
+  - pip install ansible
+
+script:
+  # Check the vagrant playbooks
+  - cd vagrant && ansible-playbook -i ../test/hosts --syntax-check --list-hosts site.yml
+  - cd vagrant && ansible-playbook -i ../test/hosts --syntax-check --list-hosts ../vagrant/agent-tools.yml

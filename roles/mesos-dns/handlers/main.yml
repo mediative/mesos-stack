@@ -1,0 +1,3 @@
+---
+- name: Restart Mesos DNS service
+  service: name=mesos-dns state=restarted

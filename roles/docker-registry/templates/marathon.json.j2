@@ -1,0 +1,45 @@
+{
+  "id": "/docker/registry",
+  "instances": 1,
+  "cpus": 0.5,
+  "mem": 256,
+  "disk": 128,
+  "container": {
+    "docker": {
+      "type": "DOCKER",
+      "image": "registry:2",
+      "network": "BRIDGE",
+      "portMappings": [
+        { "containerPort": 5000, "protocol": "tcp" }
+      ]
+    },
+    "volumes": [
+      {
+        "containerPath": "/auth",
+        "hostPath": "/etc/docker/auth",
+        "mode": "RO"
+      }
+    ]
+  },
+  "labels": {
+    "HAPROXY_0_VHOST": "{{docker_registry.vhost}}",
+    "HAPROXY_0_REDIRECT_TO_HTTPS": "true",
+    "HAPROXY_0_MODE": "http"
+  },
+  "env": {
+    "REGISTRY_AUTH": "htpasswd",
+    "REGISTRY_AUTH_HTPASSWD_REALM": "{{docker_registry.auth.htpasswd.realm}}",
+    "REGISTRY_AUTH_HTPASSWD_PATH": "/auth/htpasswd",
+
+    "REGISTRY_HTTP_SECRET": "{{docker_registry.http_secret}}",
+
+    {% if docker_registry.s3 is defined %}
+      "REGISTRY_STORAGE": "s3",
+      "REGISTRY_STORAGE_S3_ACCESSKEY": "{{docker_registry.s3.accesskey}}",
+      "REGISTRY_STORAGE_S3_SECRETKEY": "{{docker_registry.s3.secretkey}}",
+      "REGISTRY_STORAGE_S3_REGION": "{{docker_registry.s3.region}}",
+      "REGISTRY_STORAGE_S3_BUCKET": "{{docker_registry.s3.bucket}}",
+      "REGISTRY_STORAGE_S3_ROOTDIRECTORY": "/mesos-registry"
+    {% endif %}
+  }
+}

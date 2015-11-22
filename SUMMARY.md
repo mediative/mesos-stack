@@ -1,0 +1,7 @@
+# Summary
+
+- [Roles](roles/README.md)
+  - [DCOS CLI](roles/dcos-cli/README.md)
+  - [Docker Registry](roles/docker-registry/README.md) 
+  - [Private Docker Registry Authentication](roles/docker-engine-auth/README.md) 
+- [Vagrant Mesos Cluster](vagrant/README.md)
