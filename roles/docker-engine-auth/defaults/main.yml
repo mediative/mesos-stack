@@ -1,0 +1,5 @@
+---
+## Credentials for private Docker registries
+#
+# See README.md for expected fields.
+docker_credentials: []

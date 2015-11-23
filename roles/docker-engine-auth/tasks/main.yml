@@ -11,3 +11,4 @@
 
 - name: Generate Docker auth archive
   shell: cd ~ && tar czf /etc/docker.tar.gz .docker/config.json
+  when: docker_tar_gz.stat.exists == false
