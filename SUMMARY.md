@@ -1,5 +1,6 @@
 # Summary
 
+- [Contributing](CONTRIBUTING.md)
 - [Roles](roles/README.md)
   - [DCOS CLI](roles/dcos-cli/README.md)
   - [Docker Registry](roles/docker-registry/README.md) 
