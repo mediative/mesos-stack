@@ -1,0 +1,10 @@
+*.pem
+*.yml
+*.j2
+/test/
+/vagrant/.vagrant
+/vagrant/certificates
+/vagrant/hosts
+/vagrant/marathon
+LICENSE
+Vagrantfile
