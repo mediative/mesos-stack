@@ -9,34 +9,7 @@ The main features are:
  - Marathon load balancer using HAProxy for SSL and proxying to internal
    applications
 
-```mermaid
-graph TB;
-
-subgraph mesos-node-0
-  Zookeeper
-  MarathonLB[Marathon LB / HAProxy]
-  Marathon
-  Chronos
-  MesosMaster[Mesos Master]
-  MesosAgent0[Mesos Agent #0]
-  MesosDNS[Mesos DNS]
-
-  Zookeeper --- Marathon
-  Zookeeper --- MesosMaster
-  MarathonLB --- Marathon
-  Marathon --- MesosMaster
-  Chronos --- MesosMaster
-  MesosMaster --- MesosAgent0
-end
-
-subgraph mesos-node-1
-  MesosMaster --- MesosAgent1[Mesos Agent #1]
-end
-
-subgraph mesos-node-2
-  MesosMaster --- MesosAgent2[Mesos Agent #2]
-end
-```
+To try it out locally use the [Vagrant](vagrant/README.md) configuration.
 
 ## Usage
 

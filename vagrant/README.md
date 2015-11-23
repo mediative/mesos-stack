@@ -1,23 +1,42 @@
 # Running Mesos Cluster with Vagrant
 
+<!-- toc -->
+
 The local cluster will have three nodes:
 
- - mesos-node-0 (10.141.141.10):
-   - Zookeeper
-   - Mesos master
-   - Mesos agent
-   - HAProxy/Marathon load balancer
+```mermaid
+graph TB;
 
- - mesos-node-1 (10.141.141.11):
-   - Mesos agent
-   - Mesos DNS
+subgraph mesos-node-0 - 10.141.141.10
+  Zookeeper
+  MarathonLB[Marathon LB / HAProxy]
+  Marathon
+  Chronos
+  MesosMaster[Mesos Master]
+  MesosAgent0[Mesos Agent #0]
+  MesosDNS[Mesos DNS]
 
- - mesos-node-2 (10.141.141.12):
-   - Mesos agent
+  Zookeeper --- Marathon
+  Zookeeper --- MesosMaster
+  MarathonLB --- Marathon
+  Marathon --- MesosMaster
+  Chronos --- MesosMaster
+  MesosMaster --- MesosAgent0
+end
+
+subgraph mesos-node-1 - 10.141.141.11
+  MesosMaster --- MesosAgent1[Mesos Agent #1]
+end
+
+subgraph mesos-node-2 - 10.141.141.12
+  MesosMaster --- MesosAgent2[Mesos Agent #2]
+end
+```
+
+## Setting up the cluster
 
 First, bring up the local cluster VMs:
 
-    $ cd contrib/vagrant
     $ vagrant up
 
 Then install and configure the DCOS CLI:
@@ -30,7 +49,8 @@ Then install and configure the DCOS CLI:
     $ dcos config set package.cache ~/.dcos/cache
     $ dcos config set package.sources "https://github.com/mesosphere/universe/archive/version-1.x.zip" ]'
 
-Finally, add the following to `/etc/hosts` if you plan to deploy example apps descriptors located inside the `apps` directory:
+Finally, add the following to `/etc/hosts` if you plan to deploy example apps
+descriptors located inside the `marathon` directory:
 
 ```sh
 # Proxied domains should point to the primary node
