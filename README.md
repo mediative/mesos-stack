@@ -1,6 +1,6 @@
 # Mesos Cluster
 
-Scripts to configure a Mesos cluster using Mesos and Mesosphere components.
+Scripts to configure a Mesos cluster using Mesos and Mesosphere services.
 The main features are:
 
  - Mesos master running the Marathon and Chronos frameworks
@@ -13,25 +13,28 @@ To try it out locally use the [Vagrant](vagrant/README.md) configuration.
 
 ## Usage
 
-To use the scripts to build a custom Mesos cluster include the following two
-files in your DevOps setup. The first one allows you to include the roles in
-your project by invoking:
+To use the scripts to build a custom Mesos cluster first install the roles in
+your project:
 
-    $ ansible-galaxy install -r requirements.yml
+    $ ansible-galaxy install --force --roles-path .ansible \
+        https://github.com/ypg-data/mesos-stack
 
-`requirements.yml`:
-```yaml
-- src: https://github.com/ypg-data/mesos-stack
-  scm: git
-  name: mesos-stack
-  path: .
-```
-
-The second file tells Ansible to load roles from the roles directory provided by
-this project.
+and configure Ansible to load roles from the roles directory provided by this
+project.
 
 `ansible.cfg`:
 ```ini
 [defaults]
-roles_path = mesos-stack/roles
+roles_path = .ansible/mesos-stack/roles
 ```
+
+Alternatively, you can also use a `requirements.yml` file:
+
+```yaml
+- src: https://github.com/ypg-data/mesos-stack
+  path: .ansible
+```
+
+and pull down the roles to your DevOps setup by running:
+
+    $ ansible-galaxy install -r requirements.yml
