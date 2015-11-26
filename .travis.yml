@@ -1,15 +1,32 @@
 # Use container-based infrastructure
 sudo: false
-cache: pip
+
+cache:
+  pip: true
+  directories:
+    - $HOME/.gitbook
+    - node_modules
 
 language: python
-python: "2.7"
+python: '2.7'
 
 before_install:
-  - pip install ansible
+  - make setup
 
 script:
-  # Check the vagrant playbooks
-  - cd vagrant
-  - ansible-playbook -i ../test/hosts --syntax-check --list-hosts site.yml
-  - ansible-playbook -i ../test/hosts --syntax-check --list-hosts agent-tools.yml
+  - make test
+
+before_deploy:
+  - make site
+
+deploy:
+  provider: script
+  script: tools/deploy-site.sh
+  skip_cleanup: true
+  on:
+    branch: master
+    condition: $TRAVIS_PULL_REQUEST = false
+
+env:
+  global:
+    secure: yrcbEYhkF5R7LxM5OhydLsuwabxK/k9Ry2Z8a6tJyEMMDZWiO3POo750zjbeGHwRrfTCnoBE6Vtz2vP/0or83u2sX/R2cENwqLd8Ii+mQyB/S++7a77nfue4C9y7HaOsRqVj4n4UWQKLuLmmt778qr+Cp5ORV19aGXKhBgDuMCd4Xc+/+x/sryh4tj3Lmm9VFnfLpmrez8Gx+2i0/yVPoSoeV+l9/NfySIe0rpO8p5OJSqBHCgFfVP7HnchdXzbjEZSofu2n20geG+fB+LDOrdHoAcOCZ0jpHe6pGAJftvu/44JoJobAjTvrgd+dd/5G9SsOIp2cJgp24uScmFo4SPGl27HQ7jm6stem1XF5jlxg00XUIrxPJ5S+L+rqIlAQGg4t6HEacoIKcA3nTNdvAA8c6hwDgsGVvtgem5EPoGZbXcGecaIbM2HSaBXrwYV/OpZQynjKqvpkkN9lqqOVP0knxgr0N6Vsvuy+Z6S3MNRjmtcw/wrRLQ9NJqW14MvS0tW5RJw4rWxlpd0yyPz4U+gvVaaMGF5aBaxKKOTtWJJpc8+xMTG3cOoIhGqAEa45PUrNpjn4elOKXR3MLVsIplc5mN3aE1enZtd3XeSW/EchDzxZGTfwgmCiha0e/SKQ9L5n5unaac8w+EWL0wHmjaSgWBGSLqZopy3c87ZZ0r4=

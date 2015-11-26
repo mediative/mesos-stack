@@ -1,6 +1,8 @@
 *.pem
 *.yml
 *.j2
+*.cfg
+*.sh
 /test/
 /vagrant/.vagrant
 /vagrant/certificates
@@ -8,3 +10,4 @@
 /vagrant/marathon
 LICENSE
 Vagrantfile
+Makefile
