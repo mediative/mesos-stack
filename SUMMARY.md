@@ -6,3 +6,4 @@
   - [Docker Registry](roles/docker-registry/README.md) 
   - [Private Docker Registry Authentication](roles/docker-engine-auth/README.md) 
 - [Vagrant Mesos Cluster](vagrant/README.md)
+- [Build Tools](tools/README.md)
