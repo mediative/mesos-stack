@@ -1,6 +1,6 @@
 ---
 - name: Add Docker APT key
-  apt_key: keyserver="hkp://p80.pool.sks-keyservers.net:80" id=58118E89F3A912897C070ADBF76221572C52609D state=present
+  apt_key: keyserver=ha.pool.sks-keyservers.net id=58118E89F3A912897C070ADBF76221572C52609D state=present
 
 - name: Add Docker APT repo
   apt_repository: repo="deb https://apt.dockerproject.org/repo ubuntu-trusty main" state=present
