@@ -13,6 +13,6 @@ mesos_version: "0.25.0"
 #
 # ```
 # host_mappings:
-#   - { ip: '52.7.220.1', name: 'mpn-docker.mediative.co' }
+#   - { ip: '52.7.220.1', name: 'docker-registry.example.org' }
 # ```
 host_mappings: []
