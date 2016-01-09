@@ -5,6 +5,7 @@
     - { file: '/etc/mesos/zk', content: "{{mesos_zk_url}}" }
     - { file: '/etc/mesos-slave/hostname', content: "{{inventory_hostname}}" }
     - { file: '/etc/mesos-slave/containerizers', content: 'docker,mesos' }
+    - { file: '/etc/mesos-slave/isolation', content: 'cgroups/cpu,cgroups/mem' }
     - { file: '/etc/mesos-slave/executor_registration_timeout', content: '5mins' }
     - { file: '/etc/mesos-slave/attributes', content: "{{agent_attributes}}" }
     - { file: '/etc/mesos-slave/resources', content: "{{agent_resources}}" }
