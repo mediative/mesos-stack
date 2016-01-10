@@ -65,9 +65,10 @@ The main user interfaces are:
  - Marathon: http://10.141.141.10:8080/
  - Chronos:  http://10.141.141.10:4400/
 
-To deploy applications use the DCOS CLI and the Marathon task descriptors in the `contrib/marathon` folder:
+To deploy applications use the DCOS CLI and the Marathon task descriptors in the
+`marathon` folder:
 
-    $ dcos marathon app add contrib/marathon/nginx.json
+    $ dcos marathon app add marathon/nginx.json
 
 Check that nginx is running:
 

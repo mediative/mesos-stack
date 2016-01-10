@@ -1,4 +1,4 @@
-# docker-registry
+# Docker Registry
 
 ```yaml
 ---
