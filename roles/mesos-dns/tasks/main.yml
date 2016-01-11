@@ -1,6 +1,6 @@
 ---
 - name: Download release
-  get_url: url={{mesos_dns_url}} dest={{mesos_dns_bin}}.gz mode=0440
+  get_url: url={{mesos_dns_url}} dest={{mesos_dns_bin}}.gz mode=6440
 
 # Extract keeping the original file to avoid redownloading every run
 - name: Extract binary
