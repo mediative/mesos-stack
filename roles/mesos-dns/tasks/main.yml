@@ -1,10 +1,6 @@
 ---
 - name: Download release
-  get_url: url={{mesos_dns_url}} dest={{mesos_dns_bin}}.gz mode=0440
-
-# Extract keeping the original file to avoid redownloading every run
-- name: Extract binary
-  shell: gunzip --stdout {{mesos_dns_bin}}.gz > {{mesos_dns_bin}} creates={{mesos_dns_bin}}
+  get_url: url={{mesos_dns_url}} dest={{mesos_dns_bin}} mode=6440
 
 - name: Make executable
   file: path={{mesos_dns_bin}} mode=755
