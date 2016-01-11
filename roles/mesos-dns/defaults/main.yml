@@ -1,4 +1,4 @@
 ---
-mesos_dns_version: 0.4.0
-mesos_dns_url: "https://github.com/mesosphere/mesos-dns/releases/download/v{{mesos_dns_version}}/mesos-dns-v{{mesos_dns_version}}-linux-amd64.gz"
+mesos_dns_version: 0.5.1
+mesos_dns_url: "https://github.com/mesosphere/mesos-dns/releases/download/v{{mesos_dns_version}}/mesos-dns-v{{mesos_dns_version}}-linux-amd64"
 mesos_dns_bin: "/opt/mesos-dns-{{mesos_dns_version}}"
