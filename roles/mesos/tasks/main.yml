@@ -1,33 +1,11 @@
 ---
-- name: Set Mesos cluster facts
-  set_fact:
-    mesos_quorom: "{{ (groups['mesos-master'] | count / 2) | round(0, 'ceil') | int }}"
-    mesos_zk_url: "zk://{{ groups.zookeeper | join(':2181,') }}:2181/mesos"
+- include_vars: "{{ ansible_os_family }}.yml"
 
-- name: Add Mesosphere APT key
-  apt_key: keyserver=keyserver.ubuntu.com id=E56151BF state=present
+- include: Debian.yml
+  when: ansible_os_family == "Debian"
 
-- name: Add Mesosphere APT repo
-  apt_repository: repo="deb http://repos.mesosphere.io/ubuntu/ trusty main" state=present
+- include: RedHat.yml
+  when: ansible_os_family == "RedHat"
 
-- name: Configure Mesos DNS
-  lineinfile: dest=/etc/resolvconf/resolv.conf.d/head insertbefore="^nameserver.*" regexp=".*{{item}}$" line="nameserver {{item}}" state=present
-  with_items: groups['mesos-dns']
-  notify: Regenerate /etc/resolv.conf
+- include: common.yml
 
-- name: Install Mesos package
-  apt: name={{item}} state=installed
-  with_items:
-    - mesos={{mesos_version}}*
-
-- name: Disable Zookeeper
-  service: name=zookeeper state=stopped enabled=no
-  when: "'zookeeper' not in group_names"
-
-- name: Disable Mesos Master
-  service: name=mesos-master state=stopped enabled=no
-  when: "'mesos-master' not in group_names"
-
-- name: Disable Mesos Agent
-  service: name=mesos-slave state=stopped enabled=no
-  when: "'mesos-agent' not in group_names"

@@ -1,6 +1,7 @@
 10.141.141.10 ansible_hostname=mesos-node-0 zoo_id=1 agent_attributes="zone:public;layer:frontend" agent_resources="ports(*):[6000-60000]"
 10.141.141.11 ansible_hostname=mesos-node-1          agent_attributes="zone:private;layer:backend;dataflow:jobs-default;db:cassandra" agent_resources="ports(*):[6000-60000]"
 10.141.141.12 ansible_hostname=mesos-node-2          agent_attributes="zone:private;layer:backend;dataflow:jobs-secondary" agent_resources="ports(*):[6000-60000]"
+10.141.141.13 ansible_hostname=mesos-node-3          agent_attributes="zone:private;layer:backend;dataflow:jobs-secondary" agent_resources="ports(*):[6000-60000]"
 
 [all:vars]
 ansible_ssh_user=vagrant
@@ -15,6 +16,7 @@ ansible_ssh_user=vagrant
 10.141.141.10
 10.141.141.11
 10.141.141.12
+10.141.141.13
 
 [mesos-dns]
 10.141.141.10

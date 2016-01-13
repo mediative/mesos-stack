@@ -15,7 +15,9 @@
           { ip: '10.141.141.10', name: 'docker.mesos.dev' }
         ]
       }
-
+  vars_files:
+    - secrets.yml
+    
 - name: Zookeeper nodes
   sudo: True
   gather_facts: False
@@ -32,6 +34,10 @@
     - { role: mesos }
     - { role: mesos-master }
     - { role: dcos-cli }
+    - { role: chronos-sync }
+  vars_files:
+    - secrets.yml
+    
 
 - name: Mesos agent nodes
   sudo: True
@@ -42,6 +48,9 @@
     - { role: docker-engine }
     - { role: mesos }
     - { role: mesos-agent }
+  vars_files:
+    - secrets.yml
+    
 
 - name: Mesos DNS nodes
   sudo: True
@@ -56,3 +65,8 @@
   hosts: marathon-lb
   roles:
     - { role: marathon-lb, marathon_lb_pem: 'certificates/mesos.dev.pem' }
+    - { role: marathon }
+  vars_files:
+    - secrets.yml
+    
+

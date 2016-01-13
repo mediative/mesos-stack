@@ -1,14 +1,10 @@
 ---
-- name: Install PIP
-  apt: name=python-pip state=installed
+- include_vars: "{{ ansible_os_family }}.yml"
 
-- name: Install DCOS CLI
-  pip: name=dcoscli state=present
+- include: Debian.yml
+  when: ansible_os_family == "Debian"
 
-- name: Create DCOS CLI config directory
-  file: path=~/.dcos state=directory mode=0700
-  become_user: "{{ansible_ssh_user}}"
+- include: RedHat.yml
+  when: ansible_os_family == "RedHat"
 
-- name: Configure DCOS CLI
-  template: src=dcos.toml.j2 dest=~/.dcos/dcos.toml mode=0600
-  become_user: "{{ansible_ssh_user}}"
+- include: common.yml

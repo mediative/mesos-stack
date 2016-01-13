@@ -1,21 +1,10 @@
-- name: Install Mesos master packages
-  apt: name={{item}} state=installed
-  with_items:
-    - marathon={{marathon_version}}*
-    - chronos={{chronos_version}}*
+---
+- include_vars: "{{ ansible_os_family }}.yml"
 
-- name: Configure master
-  copy: content={{item.content}} dest={{item.file}} mode=644
-  with_items:
-    - { file: '/etc/mesos/zk', content: "{{mesos_zk_url}}" }
-    - { file: '/etc/mesos-master/cluster', content: "'{{cluster_name}}'" } 
-    - { file: '/etc/mesos-master/hostname', content: "{{ansible_hostname}}" }
-    - { file: '/etc/mesos-master/quorum', content: "{{mesos_quorom}}" }
-  notify: Restart master services
+- include: Debian.yml
+  when: ansible_os_family == "Debian"
 
-- name: Start master services
-  service: name={{item}} state=started enabled=yes
-  with_items:
-    - marathon
-    - chronos
-    - mesos-master
+- include: RedHat.yml
+  when: ansible_os_family == "RedHat"
+
+- include: common.yml

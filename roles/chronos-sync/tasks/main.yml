@@ -1,13 +1,10 @@
 ---
-- name: Install required AP packages
-  apt: name={{item}} state=installed
-  with_items:
-    - git
-    - ruby1.9.3
-    - python-pip
+- include_vars: "{{ ansible_os_family }}.yml"
 
-- name: Install AWS CLI
-  pip: name=awscli state=present
+- include: Debian.yml
+  when: ansible_os_family == "Debian"
 
-- name: Setup chronos sync
-  git: repo=https://github.com/mesos/chronos.git dest=/opt/chronos
+- include: RedHat.yml
+  when: ansible_os_family == "RedHat"
+
+- include: common.yml
