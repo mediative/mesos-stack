@@ -1,0 +1,14 @@
+# {{ansible_managed}}
+description "Chronos for Mesos"
+
+start on runlevel [2345]
+stop on runlevel [!2345]
+
+respawn
+respawn limit 10 5
+
+script
+/usr/bin/chronos --http_credentials  "{{mesos_http.user}}:{{mesos_http.password}}" \
+--mesos_authentication_principal  "{{mesos_http.user}}" \
+--mesos_authentication_secret_file  "/etc/init/chronos-passwd"
+end script

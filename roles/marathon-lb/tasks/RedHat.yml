@@ -1,0 +1,7 @@
+---
+- name: Install HAProxy
+  yum: name=haproxy
+
+- name: Install PIP
+  yum: name=python-pip state=installed
+

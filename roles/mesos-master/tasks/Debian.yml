@@ -1,0 +1,6 @@
+- name: Install Mesos master packages
+  apt: name={{item}} state=installed
+  with_items:
+    - marathon={{marathon_version}}*
+    - chronos={{chronos_version}}*
+

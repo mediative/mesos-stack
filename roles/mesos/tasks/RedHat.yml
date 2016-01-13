@@ -1,0 +1,26 @@
+---
+- name: Set Mesos cluster facts
+  set_fact:
+    mesos_quorom: "{{ (groups['mesos-master'] | count / 2) | round(0, 'ceil') | int }}"
+    mesos_zk_url: "zk://{{ groups.zookeeper | join(':2181,') }}:2181/mesos"
+
+- name: Configure Mesos DNS
+  lineinfile: dest=/etc/resolv.conf insertbefore="^nameserver.*" regexp=".*{{item}}$" line="nameserver {{item}}" state=present
+  with_items: "{{inventory_hostname}}"
+
+- name: Add mesosphere repo
+  yum: name={{mesosphere_repo}} state=present
+
+- name: Install Mesos package
+  yum: name={{item}} state=installed
+  with_items:
+    - mesos-{{mesos_version}}
+
+- name: Disable Mesos Master
+  service: name=mesos-master state=stopped
+  when: "'mesos-master' not in group_names"
+
+- name: Disable Mesos Agent
+  service: name=mesos-slave state=stopped
+  when: "'mesos-agent' not in group_names"
+

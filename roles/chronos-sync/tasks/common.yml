@@ -1,0 +1,18 @@
+---
+- name: Install AWS CLI
+  pip: name=awscli state=present
+
+- name: Setup chronos sync
+  git: repo=https://github.com/mesos/chronos.git dest=/opt/chronos
+
+- name: Configure chronos password
+  template: src=etc-init-chronos-passwd.j2 dest=/etc/init/chronos-passwd mode=0600
+  notify: Restart Chronos service
+
+- name: Configure chronos
+  template: src=etc-init-chronos.conf.j2 dest=/etc/init/chronos.conf mode=0644
+  notify: Restart Chronos service
+
+- name: Start service
+  service: name=chronos state=started enabled=yes
+

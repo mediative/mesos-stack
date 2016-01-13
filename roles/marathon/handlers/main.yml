@@ -1,0 +1,2 @@
+- name: Restart Marathon service
+  service: name=marathon state=restarted

@@ -1,0 +1,6 @@
+- name: Install Mesos master packages
+  yum: name={{item}} state=installed
+  with_items:
+    - marathon
+    - chronos
+
