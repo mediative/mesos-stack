@@ -22,6 +22,5 @@
         region: us-east-1
         bucket: docker-registry-FIXME # S3 bucket where to store registry files; must exist
   roles:
-    - { role: chronos-sync }
     - { role: docker-registry }
     - { role: docker-engine-auth }

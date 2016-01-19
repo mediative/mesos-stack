@@ -4,3 +4,9 @@
     - marathon
     - chronos
 
+- name: Install os packages
+  yum: name={{item}} state=present
+  with_items:
+    - git
+    - ruby
+    - python-pip

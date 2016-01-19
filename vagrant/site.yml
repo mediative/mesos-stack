@@ -34,7 +34,6 @@
     - { role: mesos }
     - { role: mesos-master }
     - { role: dcos-cli }
-    - { role: chronos-sync }
   vars_files:
     - secrets.yml
     
@@ -45,7 +44,6 @@
   hosts: mesos-agent
   roles:
     - { role: java }
-    - { role: docker-engine }
     - { role: mesos }
     - { role: mesos-agent }
   vars_files:

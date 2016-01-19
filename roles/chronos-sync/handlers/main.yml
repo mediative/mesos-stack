@@ -1,2 +1,0 @@
-- name: Restart Chronos service
-  service: name=chronos state=restarted
