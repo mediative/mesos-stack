@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Deploy doc site manually or from Travis to gh-pages branch on GitHub.
+# Deploy doc site manually or from Travis to branch on GitHub.
 #
 # Travis requires a GitHub token in order to push changes to `gh-pages`.
 # This token can be generated from https://github.com/settings/tokens by
@@ -27,23 +27,41 @@
 set -eu -o pipefail
 
 # The output directory for the generated docs.
-DOC_DIR="_book"
+DOC_DIR="$(pwd)/_book"
+DOC_BRANCH=master
+
+if [ -z "${GH_TOKEN:-}" ]; then
+  REPO_SLUG="$(git config remote.origin.url | sed -n 's#.*[:/]\(.*/.*\).git#\1#p')"
+  REPO_URL_PREFIX="git@github.com:"
+else
+  REPO_SLUG="$TRAVIS_REPO_SLUG"
+  REPO_URL_PREFIX="https://$GH_TOKEN@github.com/"
+fi
 
 COMMIT="${TRAVIS_COMMIT:-$(git rev-parse HEAD)}"
 BUILD_ID="${TRAVIS_BUILD_NUMBER:-$(git symbolic-ref --short HEAD)}"
-BUILD_INFO="${TRAVIS_REPO_SLUG:-local}@$COMMIT ($BUILD_ID)"
+BUILD_INFO="$REPO_SLUG@$COMMIT ($BUILD_ID)"
 
-if [ -z "${GH_TOKEN:-}" ]; then
-  REPO="$(git config remote.origin.url)"
-else
-  REPO="https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git"
-fi
+REPO_ORG="${REPO_SLUG%/*}"
+REPO_NAME="${REPO_SLUG#*/}"
+REPO_CACHE=".git/$REPO_ORG.github.io"
+REPO_URL="$REPO_URL_PREFIX$REPO_ORG/$REPO_ORG.github.io.git"
 
-rm -rf "$DOC_DIR/.git"
-cd "$DOC_DIR"
-git init
+git init "$REPO_CACHE"
+
+cd "$REPO_CACHE"
+
 git config user.name "${USER}"
 git config user.email "${USER}@${COMMIT}"
-git add .
-git commit -m "Update GitHub Pages from $BUILD_INFO"
-git push --force --quiet "$REPO" master:gh-pages > /dev/null 2>&1  
+
+git fetch --depth=1 "$REPO_URL"
+git reset --hard FETCH_HEAD
+
+rm -rf "./$REPO_NAME"
+cp -a "$DOC_DIR" "./$REPO_NAME"
+git add "$REPO_NAME"
+
+if ! git diff --cached --exit-code --quiet; then
+  git commit -m "Update $REPO_NAME docs from $BUILD_INFO"
+  git push --force --quiet "$REPO_URL" "HEAD:$DOC_BRANCH" > /dev/null 2>&1
+fi
