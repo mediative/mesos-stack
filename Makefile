@@ -15,4 +15,4 @@ setup:
 	npm install -g --prefix node_modules/ gitbook-cli
 	gitbook install
 
-.PHONY: test site setup
+.PHONY: test site deploy-site setup
