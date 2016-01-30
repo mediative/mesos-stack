@@ -1,6 +1,7 @@
 # Mesos Cluster
 
 Scripts to configure a Mesos cluster using Mesos and Mesosphere services.
+
 The main features are:
 
  - Mesos master running the Marathon and Chronos frameworks
@@ -10,6 +11,8 @@ The main features are:
    applications
 
 To try it out locally use the [Vagrant](vagrant/README.md) configuration.
+
+[![Build Status](https://travis-ci.org/ypg-data/mesos-stack.svg?branch=master)](https://travis-ci.org/ypg-data/mesos-stack)
 
 ## Usage
 
