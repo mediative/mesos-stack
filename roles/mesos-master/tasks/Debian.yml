@@ -1,0 +1,12 @@
+- name: Install Mesos master packages
+  apt: name={{item}} state=installed
+  with_items:
+    - marathon={{marathon_version}}*
+    - chronos={{chronos_version}}*
+
+- name: Install required AP packages
+  apt: name={{item}} state=installed
+  with_items:
+    - git
+    - ruby1.9.3
+    - python-pip

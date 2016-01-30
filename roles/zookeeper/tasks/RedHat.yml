@@ -1,0 +1,33 @@
+---
+- name: install cloudera from a remote repo
+  yum: name=http://archive.cloudera.com/cdh4/one-click-install/redhat/6/x86_64/cloudera-cdh-4-0.x86_64.rpm state=present
+  
+- name: Install zookeeper packages
+  yum: name={{item}} state=installed
+  with_items:
+    - zookeeper
+
+- name: Initialize zookeeper
+  file: path=/var/lib/zookeeper/version-2 state=directory
+  notify: Restart zk_redhat
+
+- name: Configure node ID
+  copy: content={{zoo_id}} dest=/etc/zookeeper/conf/myid mode=644
+  notify: Restart zk_redhat
+
+- name: remove nodes from zoo.cfg
+  lineinfile: dest=/etc/zookeeper/conf/zoo.cfg regexp='^server.' line="server.?={{item}}:2888:3888" state=absent
+  with_items: all
+
+- name: Add all nodes to zoo.cfg
+  lineinfile: dest=/etc/zookeeper/conf/zoo.cfg regexp='^server.{{hostvars[item].zoo_id}}=' line="server.{{hostvars[item].zoo_id}}={{item}}:2888:3888" state=present
+  when: hostvars[item].zoo_id is defined
+  with_items: groups['zookeeper']
+  notify: Restart zk_redhat
+
+- name: Symlink
+  file: src=/etc/zookeeper/conf/myid dest=/var/lib/zookeeper/myid state=link
+  notify: Restart zk_redhat
+
+- name: Start zookeeper
+  command: /usr/bin/zookeeper-server start

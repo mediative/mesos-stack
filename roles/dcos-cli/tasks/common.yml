@@ -1,0 +1,14 @@
+---
+- name: Install DCOS CLI
+  pip: name=dcoscli state=present
+
+- name: Create DCOS CLI config directory
+  file: path=~/.dcos state=directory mode=0700
+
+#  become_user: "{{ansible_ssh_user}}"
+  become_user: "root"
+
+- name: Configure DCOS CLI
+  template: src=dcos.toml.j2 dest=~/.dcos/dcos.toml mode=0600
+#  become_user: "{{ansible_ssh_user}}"
+  become_user: "root"

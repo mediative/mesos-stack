@@ -1,0 +1,11 @@
+---
+# Based on http://programmableinfrastructure.com/guides/service-discovery/mesos-dns-haproxy-marathon/
+- name: Add HAProxy PPA APT repo
+  apt_repository: repo="ppa:vbernat/haproxy-1.6"
+
+- name: Install HAProxy
+  apt: name=haproxy
+
+- name: Install PIP
+  apt: name=python-pip state=installed
+

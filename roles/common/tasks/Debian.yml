@@ -1,4 +1,15 @@
 ---
+- name: Update APT
+  apt: update_cache=yes cache_valid_time=3600
+
+- name: Install base packages
+  apt: name={{item}} state=installed
+  with_items:
+    - curl
+    - unzip
+    - ca-certificates
+    - software-properties-common
+
 - name: Add Docker APT key
   apt_key: keyserver=ha.pool.sks-keyservers.net id=58118E89F3A912897C070ADBF76221572C52609D state=present
 

@@ -1,3 +1,6 @@
 ---
 - name: Restart zookeeper
   service: name=zookeeper state=restarted
+
+- name: Restart zk_redhat
+  command: /usr/bin/zookeeper-server restart

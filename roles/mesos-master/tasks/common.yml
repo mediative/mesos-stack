@@ -1,0 +1,41 @@
+
+- name: Configure master
+  copy: content={{item.content}} dest={{item.file}} mode=644
+  with_items:
+    - { file: '/etc/mesos/zk', content: "{{mesos_zk_url}}" }
+    - { file: '/etc/mesos-master/cluster', content: "'{{cluster_name}}'" } 
+    - { file: '/etc/mesos-master/hostname', content: "{{ansible_hostname}}" }
+    - { file: '/etc/mesos-master/quorum', content: "{{mesos_quorom}}" }
+    - { file: '/etc/mesos-master/authenticate', content: "true" }
+    - { file: '/etc/mesos-master/authenticate_slaves', content: "true" }
+    - { file: '/etc/mesos-master/credentials', content: "/etc/init/mesos-master-passwd" }
+  notify: Restart master services
+
+- name: Configure master auth
+  template: src=etc-init-mesos-master-passwd.j2 dest=/etc/init/mesos-master-passwd mode=0600
+  notify: Restart master services
+
+- name: Start master services
+  service: name={{item}} state=started enabled=yes
+  with_items:
+    - marathon
+    - chronos
+    - mesos-master
+
+- name: Install AWS CLI
+  pip: name=awscli state=present
+
+- name: Setup chronos sync
+  git: repo=https://github.com/mesos/chronos.git dest=/opt/chronos
+
+- name: Configure chronos password
+  template: src=etc-init-chronos-passwd.j2 dest=/etc/init/chronos-passwd mode=0600
+  notify: Restart Chronos service
+
+- name: Configure chronos
+  template: src=etc-init-chronos.conf.j2 dest=/etc/init/chronos.conf mode=0644
+  notify: Restart Chronos service
+
+- name: Start service
+  service: name=chronos state=started enabled=yes
+

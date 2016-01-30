@@ -1,0 +1,6 @@
+---
+- debug: msg="common tasks"
+
+- name: Update /etc/hosts to list all cluster nodes
+  template: src=etc-hosts.j2 dest=/etc/hosts mode=0644
+

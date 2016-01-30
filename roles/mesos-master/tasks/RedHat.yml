@@ -1,0 +1,12 @@
+- name: Install Mesos master packages
+  yum: name={{item}} state=installed
+  with_items:
+    - marathon
+    - chronos
+
+- name: Install os packages
+  yum: name={{item}} state=present
+  with_items:
+    - git
+    - ruby
+    - python-pip

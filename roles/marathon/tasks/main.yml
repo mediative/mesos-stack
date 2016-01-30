@@ -1,0 +1,10 @@
+- name: Configure marathon password
+  template: src=etc-init-marathon-passwd.j2 dest=/etc/init/marathon-passwd mode=0600
+  notify: Restart Marathon service
+
+- name: Configure marathon
+  template: src=etc-init-marathon.conf.j2 dest=/etc/init/marathon.conf mode=0644
+  notify: Restart Marathon service
+
+- name: Start service
+  service: name=marathon state=started enabled=yes

@@ -1,0 +1,24 @@
+---
+- name: Downloading and enable the EPEL repository definitions.
+  yum: name={{ epel_repo }} state=present
+
+- name: Yum update 
+  shell: sudo yum update -y
+
+- name: Install os packages
+  yum: name={{item}} state=present
+  with_items:
+    - wget
+    - curl
+    - unzip
+    - libselinux-python 
+    - python-setuptools
+
+- name: repo install
+  template: src=RedHat_docker.j2 dest=/etc/yum.repos.d/docker.repo mode=0644
+
+- name: Install os packages
+  yum: name=docker-engine state=installed
+  
+- name: Start docker
+  service: name=docker state=started enabled=yes

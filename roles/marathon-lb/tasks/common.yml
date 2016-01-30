@@ -1,0 +1,20 @@
+---
+- name: Download marathon-lb
+  get_url: url={{marathon_lb_url}} dest={{marathon_lb_zip}}
+
+- name: Extract binary
+  unarchive: src={{marathon_lb_zip}} dest=/opt copy=no creates={{marathon_lb_bin}}
+
+- name: Configure marathon-lb
+  template: src=etc-init-marathon-lb.conf.j2 dest=/etc/init/marathon-lb.conf mode=0644
+  notify: Restart Marathon LB service
+
+- name: Install SSL PEM
+  copy: src={{marathon_lb_pem}} dest="/etc/ssl/mesosphere.com.pem" mode=0600
+  when: marathon_lb_pem is defined
+
+- name: Install SSE client
+  pip: name=sseclient state=present
+
+- name: Start service
+  service: name=marathon-lb state=started enabled=yes

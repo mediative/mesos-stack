@@ -5,3 +5,6 @@
     - marathon
     - chronos
     - mesos-master
+
+- name: Restart Chronos service
+  service: name=chronos state=restarted

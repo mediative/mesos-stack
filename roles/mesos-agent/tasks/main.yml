@@ -9,6 +9,18 @@
     - { file: '/etc/mesos-slave/executor_registration_timeout', content: '5mins' }
     - { file: '/etc/mesos-slave/attributes', content: "{{agent_attributes}}" }
     - { file: '/etc/mesos-slave/resources', content: "{{agent_resources}}" }
+    - { file: '/etc/mesos-slave/fetcher_cache_size', content: "2GB" }
+    - { file: '/etc/mesos-slave/work_dir', content: "/mnt/mesos" }
+    - { file: '/etc/mesos-slave/fetcher_cache_dir', content: "/tmp/mesos" }
+    - { file: '/etc/mesos-slave/credential', content: "/etc/init/mesos-slave-passwd" }
+  notify: Restart agent service
+
+- name: Configure agent auth
+  template: src=etc-init-mesos-slave-passwd.j2 dest=/etc/init/mesos-slave-passwd mode=0600
+  notify: Restart agent service
+
+- name: Configure default limits and logs
+  template: src=etc-default-mesos.j2 dest=/etc/default/mesos mode=0644
   notify: Restart agent service
 
 - name: Reset agent history
