@@ -1,5 +1,6 @@
 # Summary
 
+- [Release Notes](NEWS.md)
 - [Contributing](CONTRIBUTING.md)
 - [Roles](roles/README.md)
   - [Mesos](roles/mesos/README.md)
