@@ -11,6 +11,10 @@
     - { file: '/etc/mesos-slave/resources', content: "{{agent_resources}}" }
   notify: Restart agent service
 
+- name: Configure default limits and logs
+  template: src=etc-default-mesos.j2 dest=/etc/default/mesos mode=0644
+  notify: Restart agent service
+
 - name: Reset agent history
   file: path={{item}} state=absent
   with_items:
