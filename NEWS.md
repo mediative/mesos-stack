@@ -2,6 +2,11 @@
 
 ## master
 
+Improvements:
+
+ - Add support for Mesos agent and framework authentication.
+ - Enable HTTP authentication for Marathon and Chronos.
+
 Fixes:
 
  - mesos-dns: remove `netinfo` from `IPSources` to fix Docker tasks becoming

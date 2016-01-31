@@ -9,10 +9,15 @@
     - { file: '/etc/mesos-slave/executor_registration_timeout', content: '5mins' }
     - { file: '/etc/mesos-slave/attributes', content: "{{agent_attributes}}" }
     - { file: '/etc/mesos-slave/resources', content: "{{agent_resources}}" }
+    - { file: '/etc/mesos-slave/credential', content: '/etc/mesos-slave/.credentials' }
   notify: Restart agent service
 
 - name: Configure default limits and logs
   template: src=etc-default-mesos.j2 dest=/etc/default/mesos mode=0644
+  notify: Restart agent service
+
+- name: Configure Mesos authentication
+  template: src=etc-mesos-slave-credentials.j2 dest=/etc/mesos-slave/.credentials mode=600
   notify: Restart agent service
 
 - name: Reset agent history

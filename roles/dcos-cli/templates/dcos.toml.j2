@@ -1,12 +1,12 @@
 # {{ansible_managed}}
 [core]
-dcos_url = "http://master.mesos:5050/"
-mesos_master_url = "http://master.mesos:5050"
+dcos_url = "{{ mesos_master_url }}"
+mesos_master_url = "{{ mesos_master_url }}"
 reporting = false # No usage reporting
 email = "no-auth@example.com" # Disables auth check
 
 [marathon]
-url = "http://marathon.mesos:8080"
+url = "{{ marathon_url }}"
 
 [package]
 sources = [ "https://github.com/mesosphere/universe/archive/version-1.x.zip",]

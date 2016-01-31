@@ -26,9 +26,31 @@ Defaults are set in `defaults/main.yml`.
 
    List defining additional `/etc/hosts` mappings. Each entry should define `ip`
    and `name`.
-   
+
    Example:
    ```yaml
    host_mappings:
      - { ip: '52.7.220.1', name: 'docker-registry.example.org' }
    ```
+
+- `mesos_credentials`
+
+  Credentials used for agent and framework authentication.
+
+  Example:
+  ```yaml
+  mesos_credentials:
+    principal: mesos
+    secret: mesos
+  ```
+
+- `mesos_http_credentials`
+
+  Credentials for HTTP authentication in Marathon and Chronos. Must have the
+  form: `<user>:<password>`. Defaults to the credentials configured in
+  `mesos_credentials`.
+
+  Example:
+  ```yaml
+  mesos_http_credentials: "john:p4ssword"
+ ```

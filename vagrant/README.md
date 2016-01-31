@@ -44,8 +44,8 @@ Then install and configure the DCOS CLI:
     $ pip install dcoscli
     $ dcos config set core.email no-auth@example.com
     $ dcos config set core.reporting false
-    $ dcos config set core.mesos_master_url http://10.141.141.10:5050
-    $ dcos config set marathon.url http://10.141.141.10:8080
+    $ dcos config set core.mesos_master_url http://mesos:mesos@10.141.141.10:5050
+    $ dcos config set marathon.url http://mesos:mesos@10.141.141.10:8080
     $ dcos config set package.cache ~/.dcos/cache
     $ dcos config set package.sources "https://github.com/mesosphere/universe/archive/version-1.x.zip" ]'
 

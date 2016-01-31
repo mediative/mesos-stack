@@ -16,3 +16,15 @@ mesos_version: "0.25.0"
 #   - { ip: '52.7.220.1', name: 'docker-registry.example.org' }
 # ```
 host_mappings: []
+
+## Credentials used for framework authentication
+#
+# Defined globally here and exported in various forms via `set_fact`.
+mesos_credentials:
+  principal: mesos
+  secret: mesos
+
+## Credentials used for HTTP authentication
+#
+# By default the values defined in `mesos_credentials` are used.
+mesos_http_credentials: "{{ mesos_credentials.principal }}:{{ mesos_credentials.secret }}"
