@@ -8,4 +8,10 @@
 marathon_version: "0.13.0"
 chronos_version: "2.4.0"
 
-cluster_name: "Mediative Performance Network"
+cluster_name: "Mesos Stack"
+
+## Framework authentication
+#
+# Mirrors the variables set by the `mesos` role.
+mesos_authentication_principal: "{{ mesos_credentials_principal }}"
+mesos_authentication_secret_file: "/etc/mesos-master/.password"

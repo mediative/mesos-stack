@@ -1,5 +1,19 @@
 # Release notes
 
+## master
+
+Improvements:
+
+ - Add support for Mesos agent and framework authentication.
+ - Enable HTTP authentication for Marathon and Chronos.
+
+Fixes:
+
+ - mesos-dns: remove `netinfo` from `IPSources` to fix Docker tasks becoming
+   unreachable.
+ - mesos-agent: Store logs in `/var/log/mesos` and state files in `/mnt/mesos`
+   so they can be analyzed after rebooting a node.
+
 ## 0.1.0
 
 First official release based on Mesos version 0.25.0.

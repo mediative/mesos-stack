@@ -11,7 +11,7 @@ respawn
 script
   while true; do
     python {{marathon_lb_bin}} \
-      --marathon http://marathon.mesos:8080 \
+      --marathon "{{ marathon_url }}" \
       --syslog-socket /dev/null \
       --haproxy-config /etc/haproxy/haproxy.cfg \
       -c "service haproxy reload" \
