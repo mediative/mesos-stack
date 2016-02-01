@@ -1,0 +1,10 @@
+---
+## Additional /etc/hosts mappings
+#
+# Should define `ip` and `name`, e.g.:
+#
+# ```
+# host_mappings:
+#   - { ip: '52.7.220.1', name: 'docker-registry.example.org' }
+# ```
+host_mappings: []

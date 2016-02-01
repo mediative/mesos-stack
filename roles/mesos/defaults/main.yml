@@ -7,16 +7,6 @@
 # To install the latest use `latest`, to install latest 0.11 use `0.11`.
 mesos_version: "0.25.0"
 
-## Additional /etc/hosts mappings
-#
-# Should define `ip` and `name`, e.g.:
-#
-# ```
-# host_mappings:
-#   - { ip: '52.7.220.1', name: 'docker-registry.example.org' }
-# ```
-host_mappings: []
-
 ## Credentials used for framework authentication
 #
 # Defined globally here and exported in various forms via `set_fact`.

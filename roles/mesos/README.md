@@ -22,17 +22,6 @@ Defaults are set in `defaults/main.yml`.
    mesos_version: "0.25.0"
    ```
 
- - `host_mappings`
-
-   List defining additional `/etc/hosts` mappings. Each entry should define `ip`
-   and `name`.
-
-   Example:
-   ```yaml
-   host_mappings:
-     - { ip: '52.7.220.1', name: 'docker-registry.example.org' }
-   ```
-
 - `mesos_credentials`
 
   Credentials used for agent and framework authentication.
