@@ -38,7 +38,6 @@
   gather_facts: False
   hosts: mesos-agent
   roles:
-    - { role: java }
     - { role: docker-engine }
     - { role: mesos }
     - { role: mesos-agent }
