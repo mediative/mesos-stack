@@ -9,10 +9,11 @@ Improvements:
 
 Fixes:
 
- - mesos-dns: remove `netinfo` from `IPSources` to fix Docker tasks becoming
+ - mesos-dns: Remove `netinfo` from `IPSources` to fix Docker tasks becoming
    unreachable.
  - mesos-agent: Store logs in `/var/log/mesos` and state files in `/mnt/mesos`
    so they can be analyzed after rebooting a node.
+ - docker-engine: Use APT repo key hosted on apt.dockerproject.org
 
 ## 0.1.0
 
