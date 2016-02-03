@@ -2,17 +2,21 @@
 # vi: set ft=ruby :
 
 nodes = [
-  { :name => 'mesos-node-0', :ip => '10.141.141.10', :mem => 1024, :cpus => 1 },
-  { :name => 'mesos-node-1', :ip => '10.141.141.11', :mem => 4096, :cpus => 1 },
-  { :name => 'mesos-node-2', :ip => '10.141.141.12', :mem => 1024, :cpus => 1 }
+  { :name => 'mesos-node-0', :ip => '10.141.141.10', :mem => 1024, :cpus => 1, :box => 'ubuntu/trusty64' },
+  { :name => 'mesos-node-1', :ip => '10.141.141.11', :mem => 4096, :cpus => 1, :box => 'ubuntu/trusty64' },
+  { :name => 'mesos-node-2', :ip => '10.141.141.12', :mem => 1536, :cpus => 1, :box => 'centos65-x86_64-20140116',
+    :box_url => 'https://github.com/2creatives/vagrant-centos/releases/download/v6.5.3/centos65-x86_64-20140116.box'
+  }
 ]
 
 Vagrant.configure('2') do |config|
-  config.vm.box = 'ubuntu/trusty64'
   config.ssh.insert_key = false
 
   nodes.each do |node|
     config.vm.define node[:name] do |instance|
+      instance.vm.box = node[:box]
+      instance.vm.box_url = node[:box_url] unless node[:box_url].nil?
+
       instance.vm.provider "virtualbox" do |vb|
         vb.customize ['modifyvm', :id, '--memory', node[:mem]]
         vb.customize ['modifyvm', :id, '--cpus', node[:cpus]]

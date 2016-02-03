@@ -1,0 +1,9 @@
+---
+- name: Ensure that a newer version of device-mapper is available - https://github.com/docker/docker/issues/12108
+  yum: name=device-mapper state=latest
+
+- name: Add Docker repo
+  template: src=etc-yum.repos.d-docker.repo.j2 dest=/etc/yum.repos.d/docker.repo mode=0644
+
+- name: Install docker
+  yum: name=docker-engine state=installed

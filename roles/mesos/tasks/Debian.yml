@@ -1,0 +1,18 @@
+---
+- name: Add Mesosphere APT key
+  apt_key: keyserver=keyserver.ubuntu.com id=E56151BF state=present
+
+- name: Add Mesosphere APT repo
+  apt_repository: repo="deb http://repos.mesosphere.io/{{ ansible_distribution | lower }} {{ ansible_distribution_release }} main" state=present
+
+- name: Install Mesos package
+  apt: name={{item}} state=installed
+  with_items:
+    - mesos={{mesos_version}}*
+
+# The Mesos Debian package depends on Zookeeper, which we install in a separate
+# role. Since master nodes and agent nodes in particular can be configured to
+# not run Zookeeeper we disable the service explicitly.
+- name: Disable Zookeeper for non-zookeeper hosts
+  service: name=zookeeper state=stopped enabled=no
+  when: "'zookeeper' not in group_names"

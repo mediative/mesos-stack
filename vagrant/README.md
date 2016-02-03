@@ -65,6 +65,8 @@ The main user interfaces are:
  - Marathon: http://10.141.141.10:8080/
  - Chronos:  http://10.141.141.10:4400/
 
+And the default username and password is `mesos` / `mesos`.
+
 To deploy applications use the DCOS CLI and the Marathon task descriptors in the
 `marathon` folder:
 

@@ -1,0 +1,8 @@
+---
+- name: Add mesosphere repo
+  yum: name={{mesosphere_repo}} state=present
+
+- name: Install Mesos package
+  yum: name={{item}} state=installed
+  with_items:
+    - mesos-{{mesos_version}}

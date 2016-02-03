@@ -1,3 +1,4 @@
 ---
 - name: Regenerate /etc/resolv.conf
   command: resolvconf -u
+  when: ansible_os_family == "Debian"
