@@ -8,3 +8,10 @@
 #   - { ip: '52.7.220.1', name: 'docker-registry.example.org' }
 # ```
 host_mappings: []
+
+# EPEL repository released packaged per OS version
+epel_releases:
+  '6': 'epel-release-6-8.noarch.rpm'
+
+# EPEL repository URL
+epel_repo: "http://dl.fedoraproject.org/pub/epel/{{ ansible_distribution_major_version }}/{{ ansible_architecture }}/{{ epel_releases[ansible_distribution_major_version] }}"

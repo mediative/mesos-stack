@@ -9,25 +9,18 @@
     mesos_master_url: "http://{{ mesos_http_credentials }}@master.mesos:5050"
     marathon_url: "http://{{ mesos_http_credentials }}@marathon.mesos:8080"
 
-- name: Add Mesosphere APT key
-  apt_key: keyserver=keyserver.ubuntu.com id=E56151BF state=present
+- name: Conditionally install Debian packages
+  include: Debian.yml
+  when: ansible_os_family == "Debian"
 
-- name: Add Mesosphere APT repo
-  apt_repository: repo="deb http://repos.mesosphere.io/ubuntu/ trusty main" state=present
+- name: Conditionally install RedHat packages
+  include: RedHat.yml
+  when: ansible_os_family == "RedHat"
 
 - name: Configure Mesos DNS
-  lineinfile: dest=/etc/resolvconf/resolv.conf.d/head insertbefore="^nameserver.*" regexp=".*{{item}}$" line="nameserver {{item}}" state=present
+  lineinfile: dest={{mesos_dns_config_file[ansible_os_family]}} insertbefore="^nameserver.*" regexp=".*{{item}}$" line="nameserver {{item}}" state=present
   with_items: groups['mesos-dns']
   notify: Regenerate /etc/resolv.conf
-
-- name: Install Mesos package
-  apt: name={{item}} state=installed
-  with_items:
-    - mesos={{mesos_version}}*
-
-- name: Disable Zookeeper
-  service: name=zookeeper state=stopped enabled=no
-  when: "'zookeeper' not in group_names"
 
 # The Mesos package installs both the master and agent. Make the Mesos services
 # match those of the roles.

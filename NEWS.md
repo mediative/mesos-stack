@@ -4,6 +4,7 @@
 
 Improvements:
 
+ - mesos-agent: Support CentOS 6.5 with docker containerizer.
  - Add support for Mesos agent and framework authentication.
  - Enable HTTP authentication for Marathon and Chronos.
 
