@@ -1,6 +1,6 @@
 # Release notes
 
-## master
+## 0.2.0
 
 Improvements:
 
