@@ -1,4 +1,8 @@
 ---
+- name: Set facts
+  set_fact:
+    mesos_zk_url: "zk://{{ groups.zookeeper | join(':2181,') }}:2181/mesos"
+
 - name: Conditionally install Debian packages
   include: Debian.yml
   when: ansible_os_family == "Debian"
