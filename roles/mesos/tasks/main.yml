@@ -2,7 +2,7 @@
 - name: Set Mesos cluster facts
   set_fact:
     mesos_quorom: "{{ (groups['mesos-master'] | count / 2) | round(0, 'ceil') | int }}"
-    mesos_zk_url: "zk://{{ groups.zookeeper | join(':2181,') }}:2181/mesos"
+# already in "common":    mesos_zk_url: "zk://{{ groups.zookeeper | join(':2181,') }}:2181/mesos"
     mesos_credentials_principal: "{{ mesos_credentials.principal }}"
     mesos_credentials_secret: "{{ mesos_credentials.secret }}"
     mesos_http_credentials: "{{ mesos_http_credentials }}"

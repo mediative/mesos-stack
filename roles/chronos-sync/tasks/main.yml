@@ -1,10 +1,19 @@
 ---
-- name: Install required AP packages
+- name: Install required ubuntu packages
   apt: name={{item}} state=installed
   with_items:
     - git
     - ruby1.9.3
     - python-pip
+  when: ansible_pkg_mgr == 'apt'
+  
+- name: Install required yum packages
+  yum: name={{item}} state=installed
+  with_items:
+    - git
+    - ruby
+    - python-pip
+  when: ansible_pkg_mgr == 'yum'
 
 - name: Install AWS CLI
   pip: name=awscli state=present
