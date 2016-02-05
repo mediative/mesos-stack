@@ -1,5 +1,15 @@
 # Release notes
 
+## master
+
+Improvements:
+
+ - common: Add fully qualified domain name in `/etc/hosts`.
+
+Fixes:
+
+ - java, chronos-sync: CentOS support.
+
 ## 0.2.0
 
 Improvements:
