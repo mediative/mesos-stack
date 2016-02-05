@@ -25,6 +25,7 @@ subgraph mesos-node-0 - 10.141.141.10
 end
 
 subgraph mesos-node-1 - 10.141.141.11
+  Zookeeper
   MesosMaster --- MesosAgent1[Mesos Agent #1]
 end
 

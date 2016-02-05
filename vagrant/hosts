@@ -1,12 +1,14 @@
 10.141.141.10 ansible_hostname=mesos-node-0 zoo_id=1 agent_attributes="zone:public;layer:frontend" agent_resources="ports(*):[6000-60000]"
-10.141.141.11 ansible_hostname=mesos-node-1          agent_attributes="zone:private;layer:backend" agent_resources="ports(*):[6000-60000]"
+10.141.141.11 ansible_hostname=mesos-node-1 zoo_id=2 agent_attributes="zone:private;layer:backend" agent_resources="ports(*):[6000-60000]"
 10.141.141.12 ansible_hostname=mesos-node-2          agent_attributes="zone:private;layer:backend" agent_resources="ports(*):[6000-60000]"
 
 [all:vars]
 ansible_ssh_user=vagrant
+ansible_dns=mesos.dev
 
 [zookeeper]
 10.141.141.10
+10.141.141.11
 
 [mesos-master]
 10.141.141.10

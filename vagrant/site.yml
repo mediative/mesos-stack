@@ -47,7 +47,9 @@
   gather_facts: False
   hosts: mesos-dns
   roles:
-    - { role: mesos-dns }
+    - { role: mesos-dns,
+        mesos_dns_resolvers: [ '8.8.8.8', '8.8.4.4' ]
+      }
 
 - name: Marathon LB nodes
   sudo: True

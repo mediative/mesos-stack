@@ -10,15 +10,8 @@
   copy: content={{zoo_id}} dest=/etc/zookeeper/conf/myid mode=644
   notify: Restart zookeeper
 
-- name: remove nodes from zoo.cfg
-  lineinfile: dest=/etc/zookeeper/conf/zoo.cfg regexp='^server.' line="server.?={{item}}:2888:3888" state=absent
-  with_items: all
-
-- name: Add all nodes to zoo.cfg
-  lineinfile: dest=/etc/zookeeper/conf/zoo.cfg regexp='^server.{{hostvars[item].zoo_id}}=' line="server.{{hostvars[item].zoo_id}}={{item}}:2888:3888" state=present
-  when: hostvars[item].zoo_id is defined
-  with_items: groups['zookeeper']
-  notify: Restart zookeeper
+- name: Configure zookeeper servers
+  template: src=etc-zookeeper-conf-zoo.cfg dest=/etc/zookeeper/conf/zoo.cfg mode=0644
 
 - name: Start zookeeper
   service: name=zookeeper state=started enabled=yes

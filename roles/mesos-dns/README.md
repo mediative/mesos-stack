@@ -27,3 +27,14 @@ Defaults are set in `defaults/main.yml`.
    ```yaml
    mesos_dns_bin: "/opt/mesos-dns-{{mesos_dns_version}}"
    ```
+
+ - `mesos_dns_resolvers`
+
+   An ordered list of DNS resolvers to use for external lookups. 
+
+   Example:
+   ```yaml
+   mesos_dns_resolver:
+    - 10.10.10.10 # Internal
+    - 8.8.8.8 # Google
+   ```

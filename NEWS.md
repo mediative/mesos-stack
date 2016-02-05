@@ -1,5 +1,17 @@
 # Release notes
 
+## master
+
+Improvements:
+
+ - common: Add fully qualified domain name in `/etc/hosts`.
+ - mesos-dns: Make the resolver list configurable. Defaults to `8.8.8.8`.
+
+Fixes:
+
+ - zookeeper: Handle removal of nodes.
+ - java, chronos-sync: CentOS support.
+
 ## 0.2.0
 
 Improvements:
