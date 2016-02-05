@@ -20,7 +20,7 @@ To use the scripts to build a custom Mesos cluster first install the roles in
 your project:
 
     $ ansible-galaxy install --force --roles-path .ansible \
-        https://github.com/ypg-data/mesos-stack,0.2.0
+        https://github.com/ypg-data/mesos-stack,0.3.0
 
 and configure Ansible to load roles from the roles directory provided by this
 project.
@@ -36,7 +36,7 @@ Alternatively, you can also use a `requirements.yml` file:
 ```yaml
 - src: https://github.com/ypg-data/mesos-stack
   path: .ansible
-  version: 0.2.0
+  version: 0.3.0
 ```
 
 and pull down the roles to your DevOps setup by running:
