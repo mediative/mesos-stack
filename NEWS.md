@@ -8,6 +8,7 @@ Improvements:
 
 Fixes:
 
+ - zookeeper: Handle removal of nodes.
  - java, chronos-sync: CentOS support.
 
 ## 0.2.0
