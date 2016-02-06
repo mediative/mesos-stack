@@ -1,0 +1,10 @@
+---
+- name: Restart mesos services
+  service: name={{item}} state=restarted
+  with_items:
+    - marathon
+    - marathon-lb
+    - chronos
+    - mesos-master
+    - mesos-slave
+    - mesos-dns

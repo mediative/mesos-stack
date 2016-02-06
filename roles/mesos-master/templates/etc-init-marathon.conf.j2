@@ -12,4 +12,5 @@ script
   --http_credentials "{{ mesos_http_credentials }}" \
   --mesos_authentication_principal "{{ mesos_authentication_principal }}" \
   --mesos_authentication_secret_file "{{ mesos_authentication_secret_file }}"
+  --http_port {{marathon_port}}
 end script

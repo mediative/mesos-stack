@@ -1,0 +1,3 @@
+---
+- name: Start GlusterFS
+  service: name=glusterfs-server state=started enabled=true

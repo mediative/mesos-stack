@@ -7,7 +7,7 @@
     mesos_credentials_secret: "{{ mesos_credentials.secret }}"
     mesos_http_credentials: "{{ mesos_http_credentials }}"
     mesos_master_url: "http://{{ mesos_http_credentials }}@master.mesos:5050"
-    marathon_url: "http://{{ mesos_http_credentials }}@marathon.mesos:8080"
+    marathon_url: "http://{{ mesos_http_credentials }}@marathon.mesos:{{marathon_port}}"
 
 - name: Conditionally install Debian packages
   include: Debian.yml

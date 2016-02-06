@@ -5,6 +5,7 @@
 [all:vars]
 ansible_ssh_user=vagrant
 ansible_dns=mesos.dev
+marathon_port=8080
 
 [zookeeper]
 10.141.141.10
@@ -23,3 +24,7 @@ ansible_dns=mesos.dev
 
 [marathon-lb]
 10.141.141.10
+
+[glusterfs_nodes]
+10.141.141.10
+10.141.141.11
