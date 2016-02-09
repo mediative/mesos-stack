@@ -7,7 +7,7 @@
     mesos_credentials_secret: "{{ mesos_credentials.secret }}"
     mesos_http_credentials: "{{ mesos_http_credentials }}"
     mesos_master_url: "http://{{ mesos_http_credentials }}@master.mesos:5050"
-    marathon_url: "http://{{ mesos_http_credentials }}@marathon.mesos:8080"
+    marathon_url: "http://{{ mesos_http_credentials }}@marathon.mesos:{{marathon_port}}"
 
 - name: Conditionally install Debian packages
   include: Debian.yml
@@ -22,12 +22,3 @@
   with_items: groups['mesos-dns']
   notify: Regenerate /etc/resolv.conf
 
-# The Mesos package installs both the master and agent. Make the Mesos services
-# match those of the roles.
-- name: Disable Mesos Master for non-master hosts
-  service: name=mesos-master state=stopped enabled=no
-  when: "'mesos-master' not in group_names"
-
-- name: Disable Mesos Agent for non-agent hosts
-  service: name=mesos-slave state=stopped enabled=no
-  when: "'mesos-agent' not in group_names"

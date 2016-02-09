@@ -31,3 +31,5 @@ mesosphere_releases:
   '7': 'mesosphere-el-repo-7-1.noarch.rpm'
 
 mesosphere_repo: "http://repos.mesosphere.com/el/{{ ansible_distribution_major_version }}/noarch/RPMS/{{ mesosphere_releases[ansible_distribution_major_version] }}"
+
+marathon_port: "8080"

@@ -1,0 +1,8 @@
+---
+- name: Restart mesos services
+  service: name={{item}} state=restarted
+  with_items:
+    - docker
+    - mesos-master
+    - mesos-slave
+    - mesos-dns

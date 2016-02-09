@@ -12,7 +12,7 @@
     - { file: '/etc/mesos-slave/credential', content: '/etc/mesos-slave/.credentials' }
     - { file: '/etc/mesos-slave/fetcher_cache_size', content: "2GB" }
     - { file: '/etc/mesos-slave/fetcher_cache_dir', content: "/tmp/mesos" }
-    - { file: '/etc/mesos-slave/work_dir', content: "/mnt/mesos" }
+    - { file: '/etc/mesos-slave/work_dir', content: "/log/mesos" }
   notify: Restart agent service
 
 - name: Configure default limits and logs
@@ -26,8 +26,8 @@
 - name: Reset agent history
   file: path={{item}} state=absent
   with_items:
-    - /mnt/mesos/meta/slaves
-    - /mnt/mesos/slaves
+    - /log/mesos/meta/slaves
+    - /log/mesos/slaves
   when: reset_agent is defined
   notify: Restart agent service
 
