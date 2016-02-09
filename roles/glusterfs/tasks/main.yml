@@ -10,11 +10,9 @@
   with_items:
     - glusterfs-client
     - glusterfs-server
-  when: "'glusterfs' in group_names"
 
 - name: Start GlusterFS
   service: name=glusterfs-server state=started enabled=true
-  when: "'glusterfs' in group_names"
 
 - name: Set gluster fs facts
   set_fact:
