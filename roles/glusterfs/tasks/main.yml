@@ -1,16 +1,33 @@
 ---
+- name: add GlusterFS repo
+  apt_repository: repo="deb http://ppa.launchpad.net/gluster/glusterfs-{{ glusterfs_version }}/ubuntu trusty main" state=present
+
+- name: Update APT
+  apt: update_cache=yes cache_valid_time=3600
+
+- name: Install glusterfs packages
+  apt: name={{item}} state=installed force=yes
+  with_items:
+    - glusterfs-client
+    - glusterfs-server
+  when: "'glusterfs' in group_names"
+
+- name: Start GlusterFS
+  service: name=glusterfs-server state=started enabled=true
+  when: "'glusterfs' in group_names"
+
 - name: Set gluster fs facts
   set_fact:
-    glusterfs_quorum:  "{{ (groups['glusterfs_nodes']) | count | int }}"
-    glusterfs_members: "{{ (groups['glusterfs_nodes']) | join(',') }}"
-    
+    glusterfs_quorum:  "{{ (groups['glusterfs']) | count | int }}"
+    glusterfs_members: "{{ (groups['glusterfs']) | join(',') }}"
+
 - name: connect gluster peers
   command: gluster peer probe {{ item }}
   register: gluster_peer_probe
   changed_when: "'already in peer list' not in gluster_peer_probe.stdout"
-  with_items: groups['glusterfs_nodes'] 
+  with_items: groups['glusterfs'] 
   ignore_errors: yes
-   
+
 - name: create gluster volume
   gluster_volume: state=present name=gfsvol0 host={{inventory_hostname}} rebalance=no force=yes replicas={{ glusterfs_quorum }} brick=/gfs_data cluster={{glusterfs_members}}
   run_once: true
@@ -18,7 +35,7 @@
 
 - name: start gluster volume
   gluster_volume: state=started name=gfsvol0
-  
+
 - name: mounting gluster volumes
   mount: name='/mnt' src='localhost:/gfsvol0' fstype='glusterfs' opts='defaults,_netdev' state=mounted
 #  when: "'errno 107' not in create_vol.stdout"

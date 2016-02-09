@@ -1,7 +1,4 @@
 ---
-- name: add GlusterFS repo
-  apt_repository: repo="deb http://ppa.launchpad.net/gluster/glusterfs-{{ glusterfs_version }}/ubuntu trusty main" state=present
-
 - name: Update APT
   apt: update_cache=yes cache_valid_time=3600
 
@@ -12,11 +9,3 @@
     - unzip
     - ca-certificates
     - software-properties-common
-
-- name: Install glusterfs packages
-  apt: name={{item}} state=installed force=yes
-  with_items:
-    - glusterfs-client
-    - glusterfs-server
-  when: "'glusterfs_nodes' in group_names"
-  notify: Start GlusterFS

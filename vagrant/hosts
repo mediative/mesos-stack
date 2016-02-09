@@ -25,6 +25,6 @@ marathon_port=8080
 [marathon-lb]
 10.141.141.10
 
-[glusterfs_nodes]
+[glusterfs]
 10.141.141.10
 10.141.141.11
