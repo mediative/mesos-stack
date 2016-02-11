@@ -21,4 +21,3 @@
   lineinfile: dest={{mesos_dns_config_file[ansible_os_family]}} insertbefore="^nameserver.*" regexp=".*{{item}}$" line="nameserver {{item}}" state=present
   with_items: groups['mesos-dns']
   notify: Regenerate /etc/resolv.conf
-

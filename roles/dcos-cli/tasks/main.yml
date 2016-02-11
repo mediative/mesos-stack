@@ -1,9 +1,17 @@
 ---
+- name: Set kafka facts
+  set_fact:
+    kafka_api_port: "41235"
+
 - name: Install PIP
   apt: name=python-pip state=installed
 
 - name: Install DCOS CLI
-  pip: name=dcoscli state=present
+  pip: name={{item}} state=latest
+  with_items:
+    - dcoscli
+    - six
+    - requests
 
 - name: Create DCOS CLI config directory
   file: path=~/.dcos state=directory mode=0700

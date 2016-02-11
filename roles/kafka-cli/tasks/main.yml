@@ -1,0 +1,17 @@
+---
+- name: Check if ~/.dcos/cache/a1a3267044fd65760dbfcdbe221c81e04e512657/repo/packages/K/kafka/1/config.json exists
+  stat: path=~/.dcos/cache/a1a3267044fd65760dbfcdbe221c81e04e512657/repo/packages/K/kafka/1/config.json
+  register: dcos_cache
+
+- name: install packages description from mesosphere
+  shell: dcos package update
+  when: dcos_cache.stat.exists == false
+  become_user: "{{ansible_ssh_user}}"
+
+- name: fix config file
+  template: src=kafka.config.j2 dest=~/.dcos/cache/a1a3267044fd65760dbfcdbe221c81e04e512657/repo/packages/K/kafka/1/config.json mode=0644
+  become_user: "{{ansible_ssh_user}}"
+  
+- name: fix marathon file
+  template: src=kafka.marathon.j2 dest=~/.dcos/cache/a1a3267044fd65760dbfcdbe221c81e04e512657/repo/packages/K/kafka/1/marathon.json mode=0644
+  become_user: "{{ansible_ssh_user}}"

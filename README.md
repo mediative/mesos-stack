@@ -13,7 +13,6 @@ The main features are:
 To try it out locally use the [Vagrant](vagrant/README.md) configuration.
 
 [![Build Status](https://travis-ci.org/ypg-data/mesos-stack.svg?branch=master)](https://travis-ci.org/ypg-data/mesos-stack)
-[![GitHub release](https://img.shields.io/github/release/ypg-data/mesos-stack.svg)](https://github.com/ypg-data/mesos-stack/releases/latest)
 
 ## Usage
 
