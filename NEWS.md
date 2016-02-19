@@ -1,5 +1,11 @@
 # Release notes
 
+## master
+
+Improvements:
+
+ - mesos-master, mesos-agent: Use fully qualified host names.
+
 ## 0.3.0
 
 Improvements:

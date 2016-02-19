@@ -9,7 +9,7 @@
   with_items:
     - { file: '/etc/mesos/zk', content: "{{mesos_zk_url}}" }
     - { file: '/etc/mesos-master/cluster', content: "'{{cluster_name}}'" }
-    - { file: '/etc/mesos-master/hostname', content: "{{ansible_hostname}}" }
+    - { file: '/etc/mesos-master/hostname', content: "{{mesos_hostname}}" }
     - { file: '/etc/mesos-master/quorum', content: "{{mesos_quorom}}" }
     - { file: '/etc/mesos-master/authenticate', content: "true" }
     - { file: '/etc/mesos-master/authenticate_slaves', content: "true" }

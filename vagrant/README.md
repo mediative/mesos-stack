@@ -56,6 +56,10 @@ descriptors located inside the `marathon` directory:
 ```sh
 # Proxied domains should point to the primary node
 10.141.141.10   nginx.mesos.dev
+# Mesos node hostnames
+10.141.141.10   mesos-node-0.mesos.dev
+10.141.141.11   mesos-node-1.mesos.dev
+10.141.141.12   mesos-node-2.mesos.dev
 ```
 
 ## Using the cluster
