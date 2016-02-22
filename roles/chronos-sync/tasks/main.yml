@@ -1,3 +1,8 @@
+## Chronos-sync
+#
+# Install the `chronos-sync` ruby script distributed as part of Chronos. Once
+# installed the script can be used for keeping version controlled Chronos job
+# definitions up-to-date with a Chronos instance.
 ---
 - name: Install required apt packages
   apt: name={{item}} state=installed
@@ -6,7 +11,7 @@
     - ruby1.9.3
     - python-pip
   when: ansible_pkg_mgr == 'apt'
-  
+
 - name: Install required yum packages
   yum: name={{item}} state=installed
   with_items:

@@ -1,9 +1,9 @@
 ---
-## Additional /etc/hosts mappings
+# List defining additional `/etc/hosts` mappings. Each entry should define `ip`
+# and `name`.
 #
-# Should define `ip` and `name`, e.g.:
-#
-# ```
+# Example:
+# ```yaml
 # host_mappings:
 #   - { ip: '52.7.220.1', name: 'docker-registry.example.org' }
 # ```

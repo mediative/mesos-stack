@@ -1,5 +1,8 @@
 {
   "gitbook": "2.x.x",
+  "structure": {
+    "summary": "SUMMARY.gen.md"
+  },
   "links": {
     "sidebar": {
       "Issues": "https://github.com/ypg-data/mesos-stack/issues",

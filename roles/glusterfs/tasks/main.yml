@@ -1,3 +1,6 @@
+## GlusterFS
+#
+# Install GlusterFS and configure peers and a cluster-wide volume to mount.
 ---
 - name: add GlusterFS repo
   apt_repository: repo="deb http://ppa.launchpad.net/gluster/glusterfs-{{ glusterfs_version }}/ubuntu trusty main" state=present
@@ -23,7 +26,7 @@
   command: gluster peer probe {{ item }}
   register: gluster_peer_probe
   changed_when: "'already in peer list' not in gluster_peer_probe.stdout"
-  with_items: groups['glusterfs'] 
+  with_items: groups['glusterfs']
   ignore_errors: yes
 
 - name: create gluster volume
@@ -37,5 +40,5 @@
 - name: mounting gluster volumes
   mount: name='/mnt' src='localhost:/gfsvol0' fstype='glusterfs' opts='defaults,_netdev' state=mounted
 #  when: "'errno 107' not in create_vol.stdout"
-  notify: 
+  notify:
   - Restart mesos services

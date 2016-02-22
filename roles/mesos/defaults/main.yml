@@ -1,35 +1,38 @@
 ---
-## Mesos version
+# The Mesos version to use. It generally follows the version used by the [DCOS
+# community edition](https://docs.mesosphere.com/administration/release-notes/community-edition/).
 #
-# A `*` is added after the version when installing, which permits to leave out
-# version suffixes added by Mesosphere.
-#
-# To install the latest use `latest`, to install latest 0.11 use `0.11`.
+# `*` is automatically added after the version when installing, which permits
+# to leave out version suffixes added by Mesosphere. Use `apt-policy mesos` to
+# see available versions.  To install the latest use `latest`, to install most
+# recent 0.11 release use `0.11`.
 mesos_version: "0.25.0"
 
-## Credentials used for framework authentication
+# Credentials used for framework authentication
 #
 # Defined globally here and exported in various forms via `set_fact`.
 mesos_credentials:
   principal: mesos
   secret: mesos
 
-## Credentials used for HTTP authentication
-#
+# Credentials for HTTP authentication in Marathon and Chronos.
+# Must have the form: `<user>:<password>`.
 # By default the values defined in `mesos_credentials` are used.
 mesos_http_credentials: "{{ mesos_credentials.principal }}:{{ mesos_credentials.secret }}"
 
-## OS dependent configuration
-
+# OS dependent `resolv.conf` configuration files in which to configure Mesos DNS
+# nodes as name servers.
 mesos_dns_config_file:
   Debian: /etc/resolvconf/resolv.conf.d/head
   RedHat: /etc/resolv.conf
 
-# Mesosphere released packaged per OS version
+# Mesosphere released RedHat specific packages by OS version.
 mesosphere_releases:
   '6': 'mesosphere-el-repo-6-3.noarch.rpm'
   '7': 'mesosphere-el-repo-7-1.noarch.rpm'
 
+# The Repository from which to download RedHat packages.
 mesosphere_repo: "http://repos.mesosphere.com/el/{{ ansible_distribution_major_version }}/noarch/RPMS/{{ mesosphere_releases[ansible_distribution_major_version] }}"
 
+# Marathon port number.
 marathon_port: "8080"

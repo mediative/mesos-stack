@@ -1,4 +1,15 @@
+## Marathon Load Balancer
+#
+# Install and configure HAProxy and marathon-lb as system services. Once
+# installed it will automatically map external domains to internal Marathon
+# services using application descriptor labels.
 ---
+# FIXME: Switch to docker image?
+#
+#  $ docker run --net host \
+#      -e HAPROXY_SSL_CERT="$(cat /etc/ssl/mesosphere.com.pem)" \
+#      mesosphere/marathon-lb sse \
+#      -m http://leader.mesos:8080
 # Based on http://programmableinfrastructure.com/guides/service-discovery/mesos-dns-haproxy-marathon/
 - name: Add HAProxy PPA APT repo
   apt_repository: repo="ppa:vbernat/haproxy-1.6"

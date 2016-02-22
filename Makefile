@@ -4,7 +4,21 @@ test:
 	cd vagrant && ansible-playbook -i ../test/hosts --syntax-check --list-hosts site.yml
 	cd vagrant && ansible-playbook -i ../test/hosts --syntax-check --list-hosts agent-tools.yml
 
-site:
+ROLES_TASKS = $(wildcard roles/*/tasks/main.yml)
+ROLES = $(sort $(patsubst roles/%/tasks/main.yml,%,$(ROLES_TASKS)))
+
+roles/%.md: roles/%/tasks/main.yml tools/make-doc.sh Makefile $(wildcard roles/%/defaults/main.yml)
+	tools/make-doc.sh $* > $@
+	@grep -q "$@" .git/info/exclude || echo "$@" >> .git/info/exclude
+
+SUMMARY.gen.md: SUMMARY.md tools/make-toc.sh Makefile $(ROLES_TASKS)
+	tools/make-toc.sh $< $(ROLES) > $@
+	@grep -q "$@" .git/info/exclude || echo "$@" >> .git/info/exclude
+
+site-clean:
+	$(RM) SUMMARY.gen.md $(patsubst %,roles/%.md,$(ROLES))
+
+site: SUMMARY.gen.md $(patsubst %,roles/%.md,$(ROLES))
 	gitbook build
 
 deploy-site: site

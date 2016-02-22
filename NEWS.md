@@ -5,6 +5,8 @@
 Improvements:
 
  - mesos-master, mesos-agent: Use fully qualified host names.
+ - Generate Ansible role documentation from YAML files so they are always up to
+   date.
 
 ## 0.3.0
 

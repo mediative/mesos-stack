@@ -1,3 +1,7 @@
+## Common
+#
+# Install base packages and updates `/etc/hosts` with mappings to all hosts in
+# the cluster.
 ---
 - name: Set facts
   set_fact:
