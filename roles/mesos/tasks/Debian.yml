@@ -9,6 +9,8 @@
   apt: name={{item}} state=installed
   with_items:
     - mesos={{mesos_version}}*
+  notify: Restart master services
+  notify: Restart agent services
 
 # The Mesos Debian package depends on Zookeeper, which we install in a separate
 # role. Since master nodes and agent nodes in particular can be configured to
@@ -26,4 +28,3 @@
 - name: Disable Mesos Agent for non-agent hosts
   service: name=mesos-slave state=stopped enabled=no
   when: "'mesos-agent' not in group_names"
-

@@ -1,8 +1,3 @@
-## Mesos Master
-#
-# Configure Mesos Master, Marathon and Chronos to run as system services.
-#
-# Depends on the [mesos](mesos.md) role.
 ---
 - name: Install Mesos master packages
   apt: name={{item}} state=installed

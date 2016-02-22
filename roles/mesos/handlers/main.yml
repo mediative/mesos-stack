@@ -2,3 +2,9 @@
 - name: Regenerate /etc/resolv.conf
   command: resolvconf -u
   when: ansible_os_family == "Debian"
+
+- include: master.yml
+  when: "'mesos-master' in group_names"
+
+- include: agent.yml
+  when: "'mesos-agent' in group_names"

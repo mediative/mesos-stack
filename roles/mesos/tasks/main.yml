@@ -27,3 +27,21 @@
   lineinfile: dest={{mesos_dns_config_file[ansible_os_family]}} insertbefore="^nameserver.*" regexp=".*{{item}}$" line="nameserver {{item}}" state=present
   with_items: groups['mesos-dns']
   notify: Regenerate /etc/resolv.conf
+
+### Mesos Master
+#
+# Configure Mesos Master, Marathon and Chronos to run as system services.
+- name: Configure Mesos masters
+  include: master.yml
+  when: "'mesos-master' in group_names"
+
+### Mesos Agent
+#
+# Configure the Mesos agent to use both the docker and mesos containerizers and
+# enable the `cgroup` isolator, since the default POSIX isolator doesn’t provide
+# the same robust isolation guarantees. To gracefully handle larger docker images,
+# the executor registration timeout is set to 5 minutes. Log files are configured
+# to be stored on `/var/log/mesos` so they are persisted across reboots.
+- name: Configure Mesos agents
+  include: agent.yml
+  when: "'mesos-agent' in group_names"

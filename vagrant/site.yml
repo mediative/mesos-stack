@@ -30,7 +30,6 @@
   hosts: mesos-master
   roles:
     - { role: mesos }
-    - { role: mesos-master }
     - { role: dcos-cli }
 
 - name: Mesos agent nodes
@@ -40,7 +39,6 @@
   roles:
     - { role: docker-engine }
     - { role: mesos }
-    - { role: mesos-agent }
 
 - name: Mesos DNS nodes
   sudo: True
