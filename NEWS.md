@@ -4,6 +4,7 @@
 
 Improvements:
 
+ - mesos: Bump Mesos to version 0.27.0 and Marathon to 0.15.1.
  - mesos-master, mesos-agent: Use fully qualified host names.
  - Generate Ansible role documentation from YAML files so they are always up to
    date.

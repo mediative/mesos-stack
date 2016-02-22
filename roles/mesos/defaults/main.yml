@@ -6,7 +6,7 @@
 # to leave out version suffixes added by Mesosphere. Use `apt-policy mesos` to
 # see available versions.  To install the latest use `latest`, to install most
 # recent 0.11 release use `0.11`.
-mesos_version: "0.25.0"
+mesos_version: "0.27.0"
 
 # Credentials used for framework authentication
 #
