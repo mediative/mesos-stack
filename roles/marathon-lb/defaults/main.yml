@@ -1,12 +1,15 @@
 ---
-# Git version to install.
-marathon_lb_version: 1a2c54b3aea9d147107e51a7371ae4750159571d
+# Version to install.
+marathon_lb_version: 1.1.1
 
 # URL for downloading the version.
-marathon_lb_url: "https://github.com/mesosphere/marathon-lb/archive/{{marathon_lb_version}}.zip"
+marathon_lb_url: "https://github.com/mesosphere/marathon-lb/archive/v{{marathon_lb_version}}.zip"
 
 # Location of the downloaded package.
 marathon_lb_zip: "/opt/marathon-lb-{{marathon_lb_version}}.zip"
 
-# Location of installed script.
-marathon_lb_bin: "/opt/marathon-lb-{{marathon_lb_version}}/marathon-update-haproxy.py"
+# Directory where Marathon LB files are installed.
+marathon_lb_dir: "/opt/marathon-lb-{{marathon_lb_version}}"
+
+# Path to the PEM.
+marathon_lb_pem: ''

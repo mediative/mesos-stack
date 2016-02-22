@@ -10,8 +10,10 @@
     }
   },
   "labels": {
+    "HAPROXY_GROUP":"external",
     "HAPROXY_0_VHOST": "nginx.mesos.dev",
     "HAPROXY_0_REDIRECT_TO_HTTPS": "true",
+    "HAPROXY_0_BACKEND_HEAD": "backend {backend}\n  balance {balance}\n  mode {mode}\n  rspadd Access-Control-Allow-Origin:\\ *\n  rspadd Access-Control-Allow-Methods:\\ GET,\\ POST,\\ PUT,\\ OPTIONS,\\ DELETE\n  rspadd Access-Control-Allow-Headers:\\ Origin,\\ X-Requested-With,\\ Content-Type,\\ Accept,\\ Authorization\n  rspadd X-Howdy:\\ \\o/\n",
     "HAPROXY_0_MODE": "http"
   },
   "id": "nginx",
