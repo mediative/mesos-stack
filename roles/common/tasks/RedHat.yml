@@ -10,8 +10,6 @@
   shell: uname -r| tr -d '.|-' |cut -c 1-7
   register: version
 
-- debug: var=version
-  
 - name: uninstall firmware
   yum: name={{item}} state=removed
   with_items:

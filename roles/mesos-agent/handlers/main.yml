@@ -1,7 +1,5 @@
 ---
 - name: Restart agent service
-#  shell: stop mesos-slave && rm -rf {{work_dir}}/meta && start mesos-slave
-#  sudo: true
   service: name=mesos-slave state=stopped
   notify: remove-metadata
 
