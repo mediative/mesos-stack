@@ -1,3 +1,9 @@
+## Mesos
+#
+# Install the Mesos package from the Mesosphere package repository and configure
+# each node to use the Mesos DNS nodes as name server. Finally, disables services
+# automatically installed by the Mesos package and not used by the node based on
+# its assigned roles.
 ---
 - name: Set Mesos cluster facts
   set_fact:
@@ -21,4 +27,3 @@
   lineinfile: dest={{mesos_dns_config_file[ansible_os_family]}} insertbefore="^nameserver.*" regexp=".*{{item}}$" line="nameserver {{item}}" state=present
   with_items: groups['mesos-dns']
   notify: Regenerate /etc/resolv.conf
-

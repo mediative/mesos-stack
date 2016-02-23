@@ -1,9 +1,18 @@
+## Mesos Agent
+#
+# Configure the Mesos agent to use both the docker and mesos containerizers and
+# enable the `cgroup` isolator, since the default POSIX isolator doesn’t provide
+# the same robust isolation guarantees. To gracefully handle larger docker images,
+# the executor registration timeout is set to 5 minutes. Log files are configured
+# to be stored on `/var/log/mesos` so they are persisted across reboots.
+#
+# Depends on the [mesos](mesos.md) role.
 ---
 - name: Configure agent
   copy: content={{item.content}} dest={{item.file}}
   with_items:
     - { file: '/etc/mesos/zk', content: "{{mesos_zk_url}}" }
-    - { file: '/etc/mesos-slave/hostname', content: "{{inventory_hostname}}" }
+    - { file: '/etc/mesos-slave/hostname', content: "{{mesos_hostname}}" }
     - { file: '/etc/mesos-slave/containerizers', content: 'docker,mesos' }
     - { file: '/etc/mesos-slave/isolation', content: 'cgroups/cpu,cgroups/mem' }
     - { file: '/etc/mesos-slave/executor_registration_timeout', content: '5mins' }
@@ -23,6 +32,15 @@
   template: src=etc-mesos-slave-credentials.j2 dest=/etc/mesos-slave/.credentials mode=600
   notify: Restart agent service
 
+### Hooks
+#
+# If the `reset_agent` variable is set, all agent state files are deleted and the
+# agent is restarted which is useful if an agent has become unresponsive.
+#
+# Usage:
+#```
+# $ ansible-playbook --extra-vars "reset_agent=yes" site.yml
+#```
 - name: Reset agent history
   file: path={{item}} state=absent
   with_items:

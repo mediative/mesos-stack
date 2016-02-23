@@ -1,4 +1,15 @@
+## Marathon Load Balancer
+#
+# Install and configure HAProxy and marathon-lb as system services. Once
+# installed it will automatically map external domains to internal Marathon
+# services using application descriptor labels.
 ---
+# FIXME: Switch to docker image?
+#
+#  $ docker run --net host \
+#      -e HAPROXY_SSL_CERT="$(cat /etc/ssl/mesosphere.com.pem)" \
+#      mesosphere/marathon-lb sse \
+#      -m http://leader.mesos:8080
 # Based on http://programmableinfrastructure.com/guides/service-discovery/mesos-dns-haproxy-marathon/
 - name: Add HAProxy PPA APT repo
   apt_repository: repo="ppa:vbernat/haproxy-1.6"
@@ -10,7 +21,10 @@
   get_url: url={{marathon_lb_url}} dest={{marathon_lb_zip}}
 
 - name: Extract binary
-  unarchive: src={{marathon_lb_zip}} dest=/opt copy=no creates={{marathon_lb_bin}}
+  unarchive: src={{marathon_lb_zip}} dest=/opt copy=no creates={{marathon_lb_dir}}
+
+- name: Change lua script path
+  lineinfile: dest="{{ marathon_lb_dir }}/marathon_lb.py" regexp='lua-load /marathon-lb/getpids.lua' line="      lua-load {{ marathon_lb_dir }}/getpids.lua" state=present
 
 - name: Configure marathon-lb
   template: src=etc-init-marathon-lb.conf.j2 dest=/etc/init/marathon-lb.conf mode=0644
@@ -18,13 +32,13 @@
 
 - name: Install SSL PEM
   copy: src={{marathon_lb_pem}} dest="/etc/ssl/mesosphere.com.pem" mode=0600
-  when: marathon_lb_pem is defined
+  when: marathon_lb_pem != ''
 
 - name: Install PIP
   apt: name=python-pip state=installed
 
-- name: Install SSE client
-  pip: name=sseclient state=present
+- name: Install PIP dependencies
+  pip: requirements="{{ marathon_lb_dir }}/requirements.txt"
 
 - name: Start service
   service: name=marathon-lb state=started enabled=yes

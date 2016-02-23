@@ -1,3 +1,19 @@
+## ZooKeeper
+#
+# Install ZooKeeper as a system service.
+#
+### Inventory Configuration
+#
+# - `zoo_id`
+#
+#   Set the ZooKeeper node ID for a specific host. Each node must have a
+#   cluster unique ID. The preferred way to set this is via the Ansible
+#   inventory file.
+#
+#   Example:
+#   ```
+#   10.141.141.10 ansible_hostname=mesos-node-0 zoo_id=1 agent_attributes="..." agent_resources="..."
+#   ```
 ---
 - name: Install zookeeper packages
   apt: name={{item}} state=installed

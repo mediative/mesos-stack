@@ -1,3 +1,6 @@
+## Docker Registry
+#
+# Deploy a Docker registry in the cluster as a Marathon application.
 ---
 - name: Docker auth directory
   file: path=/etc/docker/auth state=directory mode=0700
@@ -21,18 +24,18 @@
 
 # - name: Install htpasswd
 #   apt: name=apache2-utils state=installed
-# 
+#
 # - name: Check if /etc/docker/auth/htpasswd exists
 #   stat: path=/etc/docker/auht/htpasswd
 #   register: docker_registry_htpasswd
-# 
+#
 # - name: Create /etc/docker/auth/htpasswd
 #   file: path=/etc/docker/auth/htpasswd state=touch
 #   register: create_htpasswd
-# 
+#
 # - name: Debug
 #   debug: msg="{{create_htpasswd}}"
-# 
+#
 # - name: Generate Docker htpasswd file
 #   command: htpasswd -bB /etc/docker/auth/htpasswd {{item.username}} {{item.password}}
 #   when: docker_registry_htpasswd.stat.exists == false

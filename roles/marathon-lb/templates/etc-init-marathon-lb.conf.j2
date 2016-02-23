@@ -10,10 +10,11 @@ respawn
 
 script
   while true; do
-    python {{marathon_lb_bin}} \
+    python {{ marathon_lb_dir }}/marathon_lb.py \
       --marathon "{{ marathon_url }}" \
       --syslog-socket /dev/null \
       --haproxy-config /etc/haproxy/haproxy.cfg \
+      --group external \
       -c "service haproxy reload" \
       --sse
     sleep 5

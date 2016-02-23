@@ -1,3 +1,8 @@
+## Mesos DNS
+#
+# Install the Mesos DNS Go binary and configure it as a system service.
+#
+# Nodes are configured to use Mesos DNS by the [mesos](mesos.md) role.
 ---
 - name: Download release
   get_url: url={{mesos_dns_url}} dest={{mesos_dns_bin}} mode=6440

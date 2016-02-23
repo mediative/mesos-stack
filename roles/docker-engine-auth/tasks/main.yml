@@ -1,5 +1,16 @@
----
+## Docker Engine Authentication
+#
+# As explained in the [Marathon
+# docs](https://mesosphere.github.io/marathon/docs/native-docker-private-registry.html)
+# using private registries requires that credentials are provided using an
+# archive. This archive is generated during cluster provisioning on all Mesos
+# agents based on credentials in `credentials/secret.yml`.
+#
+# Requires the credentials for all Docker registries to log into to be defined via
+# the `docker_credentials` configuration variable.
+#
 # Note: this will run `docker login` on all hosts.
+---
 - name: Check if /etc/docker.tar.gz exists
   stat: path=/etc/docker.tar.gz
   register: docker_tar_gz

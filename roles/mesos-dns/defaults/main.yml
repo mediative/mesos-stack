@@ -1,7 +1,22 @@
 ---
+# The version to install. See
+# [releases](https://github.com/mesosphere/mesos-dns/releases) for
+# supported versions.
 mesos_dns_version: 0.5.1
+
+# URL from where to download the Mesos DNS binary.
 mesos_dns_url: "https://github.com/mesosphere/mesos-dns/releases/download/v{{mesos_dns_version}}/mesos-dns-v{{mesos_dns_version}}-linux-amd64"
+
+# Path to where the Mesos DNS binary should be installed.
 mesos_dns_bin: "/opt/mesos-dns-{{mesos_dns_version}}"
 
+# An ordered list of DNS resolvers to use for external lookups.
+#
+# To first resolve internal domain names and fall back to external use:
+# ```yaml
+# mesos_dns_resolver:
+#  - 10.10.10.10 # Internal
+#  - 8.8.8.8 # Google
+# ```
 mesos_dns_resolvers:
  - 8.8.8.8
