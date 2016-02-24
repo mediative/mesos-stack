@@ -5,10 +5,14 @@
 # and Marathon endpoints.
 ---
 - name: Install PIP
-  apt: name=python-pip state=installed
+  apt: name=python-pip state=latest
 
 - name: Install DCOS CLI
-  pip: name=dcoscli state=present
+  pip: name={{item}} state=latest
+  with_items:
+    - dcoscli
+    - six
+    - requests
 
 - name: Create DCOS CLI config directory
   file: path=~/.dcos state=directory mode=0700

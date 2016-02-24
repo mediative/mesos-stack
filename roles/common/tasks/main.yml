@@ -12,8 +12,21 @@
   include: Debian.yml
   when: ansible_os_family == "Debian"
 
+- name: Conditionally install RedHat packages
+  include: RedHat.yml
+  when: ansible_os_family == "RedHat"
+
 - name: Update /etc/hosts to list all cluster nodes
   template: src=etc-hosts.j2 dest=/etc/hosts mode=0644
+
+- name: disable ipv6 bridging
+  lineinfile: dest=/etc/sysctl.conf  regexp="^net.bridge.bridge-nf-call-ip6tables" line="#net.bridge.bridge-nf-call-ip6tables = 0" state=present
+
+- name: disable ipv6 bridging
+  lineinfile: dest=/etc/sysctl.conf  regexp="^net.bridge.bridge-nf-call-iptables" line="#net.bridge.bridge-nf-call-iptables = 0" state=present
+
+- name: disable ipv6 bridging
+  lineinfile: dest=/etc/sysctl.conf  regexp="^net.bridge.bridge-nf-call-arptables" line="#net.bridge.bridge-nf-call-arptables = 0" state=present
 
 - name: disable ipv6
   lineinfile: dest=/etc/sysctl.conf  regexp="^net.ipv6.conf.all.disable_ipv6" line="net.ipv6.conf.all.disable_ipv6 = 1" state=present
