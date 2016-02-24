@@ -1,13 +1,15 @@
 # Release notes
 
-## master
+## 0.4.0
 
 Improvements:
 
  - mesos-master, mesos-agent: Use fully qualified host names.
  - Generate Ansible role documentation from YAML files so they are always up to
    date.
- - marathon-lb: Upgrade to version 1.1.1
+ - marathon-lb: Upgrade to version 1.1.1.
+ - common: Disable IPv6 on all cluster nodes.
+ - New glusterfs role which adds persistent storage across nodes.
 
 ## 0.3.0
 
