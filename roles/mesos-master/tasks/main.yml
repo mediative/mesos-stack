@@ -5,7 +5,7 @@
 # Depends on the [mesos](mesos.md) role.
 ---
 - name: Install Mesos master packages
-  apt: name={{item}} state=installed
+  apt: name={{item}} state=installed force=yes
   with_items:
     - marathon={{marathon_version}}*
     - chronos={{chronos_version}}*

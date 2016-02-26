@@ -1,12 +1,13 @@
 ---
 - name: Add Mesosphere APT key
   apt_key: keyserver=keyserver.ubuntu.com id=E56151BF state=present
+  ignore_errors: true
 
 - name: Add Mesosphere APT repo
   apt_repository: repo="deb http://repos.mesosphere.io/{{ ansible_distribution | lower }} {{ ansible_distribution_release }} main" state=present
 
 - name: Install Mesos package
-  apt: name={{item}} state=installed
+  apt: name={{item}} state=installed force=yes
   with_items:
     - mesos={{mesos_version}}*
 

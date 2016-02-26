@@ -1,3 +1,11 @@
 ---
 - name: Restart agent service
-  service: name=mesos-slave state=restarted
+  service: name=mesos-slave state=stopped
+  notify: remove-metadata
+
+- name: remove-metadata
+  file: path={{agent_work_dir}}/meta state=absent
+  notify: start-agent
+
+- name: start-agent
+  service: name=mesos-slave state=started

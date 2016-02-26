@@ -5,3 +5,9 @@
     - marathon
     - chronos
     - mesos-master
+    - mesos-dns
+  notify: update-dns
+
+- name: update-dns
+  command: resolvconf -u
+  when: ansible_os_family == "Debian"
