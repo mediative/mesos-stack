@@ -21,6 +21,7 @@
   set_fact:
     glusterfs_quorum:  "{{ (groups['glusterfs']) | count | int }}"
     glusterfs_members: "{{ (groups['glusterfs']) | join(',') }}"
+    glusterfs_brick: "/gfshome/volume0"
 
 - name: connect gluster peers
   command: gluster peer probe {{ item }}
@@ -29,8 +30,11 @@
   with_items: groups['glusterfs']
   ignore_errors: yes
 
+- name: create volume
+  file: path={{glusterfs_brick}} state=directory
+
 - name: create gluster volume
-  gluster_volume: state=present name=gfsvol0 host={{inventory_hostname}} rebalance=no force=yes replicas={{ glusterfs_quorum }} brick=/gfs_data cluster={{glusterfs_members}}
+  gluster_volume: state=present name=gfsvol0 host={{inventory_hostname}} rebalance=no force=yes replicas={{ glusterfs_quorum }} brick={{glusterfs_brick}} cluster={{glusterfs_members}}
   run_once: true
   register: create_vol
 

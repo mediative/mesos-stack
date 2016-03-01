@@ -8,6 +8,9 @@
 #
 # Depends on the [mesos](mesos.md) role.
 ---
+- name: Set agent facts
+  set_fact: agent_work_dir=/log/mesos
+
 - name: Configure agent
   copy: content={{item.content}} dest={{item.file}}
   with_items:
@@ -21,7 +24,7 @@
     - { file: '/etc/mesos-slave/credential', content: '/etc/mesos-slave/.credentials' }
     - { file: '/etc/mesos-slave/fetcher_cache_size', content: "2GB" }
     - { file: '/etc/mesos-slave/fetcher_cache_dir', content: "/tmp/mesos" }
-    - { file: '/etc/mesos-slave/work_dir', content: "/log/mesos" }
+    - { file: '/etc/mesos-slave/work_dir', content: "{{agent_work_dir}}" }
   notify: Restart agent service
 
 - name: Configure default limits and logs

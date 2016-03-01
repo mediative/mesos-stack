@@ -24,7 +24,7 @@
   unarchive: src={{marathon_lb_zip}} dest=/opt copy=no creates={{marathon_lb_dir}}
 
 - name: Change lua script path
-  lineinfile: dest="{{ marathon_lb_dir }}/marathon_lb.py" regexp='lua-load /marathon-lb/getpids.lua' line="      lua-load {{ marathon_lb_dir }}/getpids.lua" state=present
+  replace: dest="{{ marathon_lb_dir }}/marathon_lb.py" regexp='.*lua-load /marathon-lb/getpids.lua' replace="      lua-load {{ marathon_lb_dir }}/getpids.lua"
 
 - name: Configure marathon-lb
   template: src=etc-init-marathon-lb.conf.j2 dest=/etc/init/marathon-lb.conf mode=0644
