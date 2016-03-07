@@ -27,7 +27,7 @@
   command: gluster peer probe {{ item }}
   register: gluster_peer_probe
   changed_when: "'already in peer list' not in gluster_peer_probe.stdout"
-  with_items: groups['glusterfs']
+  with_items: "{{groups['glusterfs']}}"
   ignore_errors: yes
 
 - name: create volume

@@ -36,11 +36,11 @@
 - name: Mesos agent nodes
   sudo: True
   gather_facts: False
-  hosts: mesos-agent
+  hosts: mesos-slave
   roles:
     - { role: docker-engine }
     - { role: mesos }
-    - { role: mesos-agent }
+    - { role: mesos-slave }
 
 - name: Mesos DNS nodes
   sudo: True

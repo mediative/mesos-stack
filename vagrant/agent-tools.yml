@@ -2,7 +2,7 @@
 - name: Mesos agent nodes
   sudo: True
   gather_facts: False
-  hosts: mesos-agent
+  hosts: mesos-slave
   vars:
     docker_users:
       - { username: user1, password: secret }

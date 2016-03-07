@@ -8,7 +8,7 @@
 [mesos-master]
 127.0.0.1
 
-[mesos-agent]
+[mesos-slave]
 127.0.0.1
 
 [mesos-dns]
