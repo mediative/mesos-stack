@@ -6,4 +6,4 @@
   apt_repository: repo="deb https://apt.dockerproject.org/repo {{ ansible_distribution | lower }}-{{ ansible_distribution_release }} main" state=present
 
 - name: Install docker
-  apt: name=docker-engine force=yes
+  apt: name=docker-engine force=yes state=latest

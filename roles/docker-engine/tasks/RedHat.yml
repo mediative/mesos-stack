@@ -6,4 +6,4 @@
   template: src=etc-yum.repos.d-docker.repo.j2 dest=/etc/yum.repos.d/docker.repo mode=0644
 
 - name: Install docker
-  yum: name=docker-engine state=installed
+  yum: name=docker-engine state=latest

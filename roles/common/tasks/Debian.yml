@@ -10,8 +10,8 @@
     - ca-certificates
     - software-properties-common
 
-- name: Install kernel 3.16
-  apt: name=linux-image-generic-lts-utopic state=latest
+- name: Install kernel 3.19
+  apt: name=linux-generic-lts-vivid state=latest
   register: newkernel
 
 - shell:  sleep 2 && reboot
