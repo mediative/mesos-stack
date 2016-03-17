@@ -6,15 +6,31 @@
 - name: Set facts
   set_fact:
     mesos_zk_url: "zk://{{ groups.zookeeper | join(':2181,') }}:2181/mesos"
-    mesos_hostname: "{{ansible_hostname}}.{{ansible_dns}}"
-
-- name: Conditionally install Debian packages
-  include: Debian.yml
-  when: ansible_os_family == "Debian"
+    mesos_hostname: "{{ansible_hostname}}.{{ansible_domainname}}"
 
 - name: Update /etc/hosts to list all cluster nodes
   template: src=etc-hosts.j2 dest=/etc/hosts mode=0644
 
+- name: disable ipv6 bridging - ip6tables
+  lineinfile: dest=/etc/sysctl.conf  regexp="^net.bridge.bridge-nf-call-ip6tables" line="#net.bridge.bridge-nf-call-ip6tables = 0" state=present
+
+- name: disable ipv6 bridging - iptables
+  lineinfile: dest=/etc/sysctl.conf  regexp="^net.bridge.bridge-nf-call-iptables" line="#net.bridge.bridge-nf-call-iptables = 0" state=present
+
+- name: disable ipv6 bridging - arptables
+  lineinfile: dest=/etc/sysctl.conf  regexp="^net.bridge.bridge-nf-call-arptables" line="#net.bridge.bridge-nf-call-arptables = 0" state=present
+
 - name: disable ipv6
   lineinfile: dest=/etc/sysctl.conf  regexp="^net.ipv6.conf.all.disable_ipv6" line="net.ipv6.conf.all.disable_ipv6 = 1" state=present
   notify:  sysctl update
+
+- name: Conditionally install Debian packages
+  include: Debian.yml
+  when: ansible_os_family == "Debian"
+  sudo: True
+
+- name: Conditionally install RedHat packages
+  include: RedHat.yml
+  when: ansible_os_family == "RedHat"
+  sudo: True
+

@@ -26,6 +26,12 @@
 - name: Change lua script path
   replace: dest="{{ marathon_lb_dir }}/marathon_lb.py" regexp='.*lua-load /marathon-lb/getpids.lua' replace="      lua-load {{ marathon_lb_dir }}/getpids.lua"
 
+- name: Comment healthcheck
+  replace: dest="{{ marathon_lb_dir }}/marathon_lb.py" regexp='^  option  httpchk GET {healthCheckPath}' replace="#  option  httpchk GET {healthCheckPath}"
+
+- name: Comment   bind {bindAddr}:80
+  replace: dest="{{ marathon_lb_dir }}/marathon_lb.py" regexp='^  bind {bindAddr}:80' replace="#  bind {bindAddr}:80"
+
 - name: Configure marathon-lb
   template: src=etc-init-marathon-lb.conf.j2 dest=/etc/init/marathon-lb.conf mode=0644
   notify: Restart Marathon LB service

@@ -4,7 +4,7 @@
 
 [all:vars]
 ansible_ssh_user=vagrant
-ansible_dns=mesos.dev
+ansible_domainname=mesos.dev
 marathon_port=8080
 
 [zookeeper]
@@ -14,7 +14,7 @@ marathon_port=8080
 [mesos-master]
 10.141.141.10
 
-[mesos-agent]
+[mesos-slave]
 10.141.141.10
 10.141.141.11
 10.141.141.12

@@ -5,15 +5,15 @@
 # and Marathon endpoints.
 ---
 - name: Install PIP
-  apt: name=python-pip state=installed
+  apt: name=python-pip state=latest
+  sudo: True
 
 - name: Install DCOS CLI
   pip: name=dcoscli state=present
+  sudo: True
 
 - name: Create DCOS CLI config directory
   file: path=~/.dcos state=directory mode=0700
-  become_user: "{{ansible_ssh_user}}"
 
 - name: Configure DCOS CLI
   template: src=dcos.toml.j2 dest=~/.dcos/dcos.toml mode=0600
-  become_user: "{{ansible_ssh_user}}"

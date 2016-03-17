@@ -26,5 +26,5 @@
 
 - name: Disable Mesos Agent for non-agent hosts
   service: name=mesos-slave state=stopped enabled=no
-  when: "'mesos-agent' not in group_names"
+  when: "'mesos-slave' not in group_names"
 

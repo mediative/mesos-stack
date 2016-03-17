@@ -4,7 +4,7 @@
 
 Improvements:
 
- - mesos-master, mesos-agent: Use fully qualified host names.
+ - mesos-master, mesos-slave: Use fully qualified host names.
  - Generate Ansible role documentation from YAML files so they are always up to
    date.
  - marathon-lb: Upgrade to version 1.1.1.
@@ -27,7 +27,7 @@ Fixes:
 
 Improvements:
 
- - mesos-agent: Support CentOS 6.5 with docker containerizer.
+ - mesos-slave: Support CentOS 6.5 with docker containerizer.
  - Add support for Mesos agent and framework authentication.
  - Enable HTTP authentication for Marathon and Chronos.
 
@@ -35,7 +35,7 @@ Fixes:
 
  - mesos-dns: Remove `netinfo` from `IPSources` to fix Docker tasks becoming
    unreachable.
- - mesos-agent: Store logs in `/var/log/mesos` and state files in `/mnt/mesos`
+ - mesos-slave: Store logs in `/var/log/mesos` and state files in `/log/mesos`
    so they can be analyzed after rebooting a node.
  - docker-engine: Use APT repo key hosted on apt.dockerproject.org
 

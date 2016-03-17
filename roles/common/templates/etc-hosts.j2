@@ -3,7 +3,7 @@
 
 # Mesos mappings
 {% for item in groups.all %}
-{{item}} {{hostvars[item]['ansible_hostname']}}.{{ansible_dns}} {{hostvars[item]['ansible_hostname']}}
+{{item}} {{hostvars[item]['mesos_hostname']}} {{hostvars[item]['ansible_hostname']}}
 {% endfor %}
 
 # Site-specific mappings from host_mappings
