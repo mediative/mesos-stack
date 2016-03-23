@@ -5,5 +5,15 @@
 - name: Add Docker APT repo
   apt_repository: repo="deb https://apt.dockerproject.org/repo {{ ansible_distribution | lower }}-{{ ansible_distribution_release }} main" state=present
 
+- name: check local cassandra instance
+  shell: curl -m 0.01 localhost:9042 -v -s 2>&1|grep Connect
+  register: cassandra_ping
+
 - name: Install docker
   apt: name=docker-engine force=yes state=latest
+  register: update_docker_flag
+
+- name: wait for cassandra if docker was re-deployed
+  wait_for: host=localhost port=9042 state=started delay=5 timeout=120
+  ignore_errors: yes
+  when: "update_docker_flag.changed and '* Connected' in cassandra_ping.stdout"

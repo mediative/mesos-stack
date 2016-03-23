@@ -25,6 +25,7 @@
     - { file: '/etc/mesos-slave/fetcher_cache_size', content: "2GB" }
     - { file: '/etc/mesos-slave/fetcher_cache_dir', content: "/tmp/mesos" }
     - { file: '/etc/mesos-slave/work_dir', content: "{{agent_work_dir}}" }
+    - { file: '/etc/mesos-slave/cgroups_limit_swap', content: "true" }
   notify: Restart agent service
 
 - name: Configure default limits and logs
