@@ -23,14 +23,14 @@
 - name: Extract binary
   unarchive: src={{marathon_lb_zip}} dest=/opt copy=no creates={{marathon_lb_dir}}
 
-- name: Change lua script path
+- name: Change lua getpids script path
   replace: dest="{{ marathon_lb_dir }}/marathon_lb.py" regexp='.*lua-load /marathon-lb/getpids.lua' replace="      lua-load {{ marathon_lb_dir }}/getpids.lua"
+
+- name: Change lua getconfig script path
+  replace: dest="{{ marathon_lb_dir }}/marathon_lb.py" regexp='.*lua-load /marathon-lb/getconfig.lua' replace="      lua-load {{ marathon_lb_dir }}/getconfig.lua"
 
 - name: Comment healthcheck
   replace: dest="{{ marathon_lb_dir }}/marathon_lb.py" regexp='^  option  httpchk GET {healthCheckPath}' replace="#  option  httpchk GET {healthCheckPath}"
-
-- name: Comment   bind {bindAddr}:80
-  replace: dest="{{ marathon_lb_dir }}/marathon_lb.py" regexp='^  bind {bindAddr}:80' replace="#  bind {bindAddr}:80"
 
 - name: Configure marathon-lb
   template: src=etc-init-marathon-lb.conf.j2 dest=/etc/init/marathon-lb.conf mode=0644
