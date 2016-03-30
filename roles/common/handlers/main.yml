@@ -1,2 +1,5 @@
 - name: sysctl update
   command: sysctl -p
+
+- name: update_grub
+  command: update-grub

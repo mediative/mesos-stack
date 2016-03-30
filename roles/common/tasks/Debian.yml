@@ -14,6 +14,10 @@
   apt: name=linux-generic-lts-vivid state=latest
   register: newkernel
 
+- name: set grub kernel boot option for mesos-slave swap limit
+  lineinfile: dest=/etc/default/grub regexp="^GRUB_CMDLINE_LINUX_DEFAULT=" line='GRUB_CMDLINE_LINUX_DEFAULT="swapaccount=1 console=tty0 console=tty1"' state=present
+  notify: update_grub
+
 - shell:  sleep 2 && reboot
   when: newkernel.changed
   async: 1
