@@ -2,7 +2,7 @@
 # The version to install. See
 # [releases](https://github.com/mesosphere/mesos-dns/releases) for
 # supported versions.
-mesos_dns_version: 0.5.1
+mesos_dns_version: 0.5.2
 
 # URL from where to download the Mesos DNS binary.
 mesos_dns_url: "https://github.com/mesosphere/mesos-dns/releases/download/v{{mesos_dns_version}}/mesos-dns-v{{mesos_dns_version}}-linux-amd64"

@@ -5,6 +5,6 @@
   "ttl": 60,
   "domain": "mesos",
   "port": 53,
-  "resolvers": ["{{ mesos_dns_resolvers | join('", "') }}"],
+  "resolvers": ["{{ mesos_dns_resolvers | ipaddr | join('", "') }}"],
   "IPSources": ["mesos", "host"]
 }
