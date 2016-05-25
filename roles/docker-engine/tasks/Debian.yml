@@ -13,6 +13,11 @@
   apt: name=docker-engine force=yes state=latest
   register: update_docker_flag
 
+- name: set up new network
+  lineinfile: dest="/etc/default/docker" regexp='DOCKER_OPTS=.*' line='DOCKER_OPTS="--bip 10.20.0.1/16 -D"' state=present
+  register: update_docker_flag
+  notify: docker_restart
+
 - name: wait for cassandra if docker was re-deployed
   wait_for: host=localhost port=9042 state=started delay=5 timeout=120
   ignore_errors: yes
