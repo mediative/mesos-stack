@@ -17,6 +17,9 @@
 - name: Install HAProxy
   apt: name=haproxy
 
+- name: Start HAProxy
+  service: name=haproxy state=started enabled=yes
+
 - name: Download marathon-lb
   get_url: url={{marathon_lb_url}} dest={{marathon_lb_zip}}
 
