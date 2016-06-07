@@ -24,6 +24,15 @@
     - { role: java }
     - { role: zookeeper }
 
+- name: Mesos DNS nodes
+  sudo: True
+  gather_facts: False
+  hosts: mesos-dns
+  roles:
+    - { role: mesos-dns,
+        mesos_dns_resolvers: [ '8.8.8.8', '8.8.4.4' ]
+      }
+
 - name: Mesos master nodes
   sudo: True
   gather_facts: False
@@ -41,15 +50,6 @@
     - { role: docker-engine }
     - { role: mesos }
     - { role: mesos-slave }
-
-- name: Mesos DNS nodes
-  sudo: True
-  gather_facts: False
-  hosts: mesos-dns
-  roles:
-    - { role: mesos-dns,
-        mesos_dns_resolvers: [ '8.8.8.8', '8.8.4.4' ]
-      }
 
 - name: Marathon LB nodes
   sudo: True

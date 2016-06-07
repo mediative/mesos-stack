@@ -25,11 +25,12 @@ Vagrant.configure('2') do |config|
 
       instance.vm.host_name = node[:name]
       instance.vm.network 'private_network', ip: node[:ip]
-
-      instance.vm.provision :ansible do |ansible|
+      if node[:name] == "mesos-node-2"
+        instance.vm.provision :ansible do |ansible|
         ansible.playbook = 'site.yml'
         ansible.inventory_path = 'hosts'
-        ansible.limit = node[:ip]
+        ansible.limit = "all"
+        end
       end
     end
   end
