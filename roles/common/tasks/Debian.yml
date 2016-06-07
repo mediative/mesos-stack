@@ -14,9 +14,14 @@
   apt: name=linux-generic-lts-vivid state=latest
   register: newkernel
 
+- name: remove cloud grub configs
+  file: path=/etc/default/grub.d/50-cloudimg-settings.cfg state=absent
+
 - name: set grub kernel boot option for mesos-slave swap limit
   lineinfile: dest=/etc/default/grub regexp="^GRUB_CMDLINE_LINUX_DEFAULT=" line='GRUB_CMDLINE_LINUX_DEFAULT="swapaccount=1 console=tty0 console=tty1"' state=present
   notify: update_grub
+
+- meta: flush_handlers
 
 - shell:  sleep 2 && reboot
   when: newkernel.changed
