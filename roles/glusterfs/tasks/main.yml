@@ -9,10 +9,11 @@
   apt: update_cache=yes cache_valid_time=3600
 
 - name: Install glusterfs packages
-  apt: name={{item}} state=latest force=yes
+  apt: name={{item}} state=installed force=yes
   with_items:
-    - glusterfs-client
-    - glusterfs-server
+    - glusterfs-common={{ glusterfs_release }}
+    - glusterfs-client={{ glusterfs_release }}
+    - glusterfs-server={{ glusterfs_release }}
 
 - name: Start GlusterFS
   service: name=glusterfs-server state=started enabled=true
