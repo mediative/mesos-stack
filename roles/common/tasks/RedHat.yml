@@ -1,6 +1,6 @@
 ---
 - name: Install base packages
-  yum: name={{item}} state=installed
+  yum: name={{item}} state=latest
   with_items:
     - curl
     - unzip
