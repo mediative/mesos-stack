@@ -9,5 +9,5 @@ email = "no-auth@example.com" # Disables auth check
 url = "{{ marathon_url }}"
 
 [package]
-sources = [ "https://github.com/mesosphere/universe/archive/version-1.x.zip",]
+sources = [ "https://codeload.github.com/mesosphere/universe/zip/version-2.x","https://github.com/mesosphere/universe/archive/version-1.x.zip" ]
 cache = "/home/{{ ansible_ssh_user }}/.dcos/cache"

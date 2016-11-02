@@ -9,7 +9,7 @@
   sudo: True
 
 - name: Install DCOS CLI
-  pip: name=dcoscli state=present version=0.2.0
+  pip: name=dcoscli state=present version=0.3.6
   sudo: True
 
 - name: Create DCOS CLI config directory

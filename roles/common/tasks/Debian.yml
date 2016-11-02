@@ -9,6 +9,7 @@
     - unzip
     - ca-certificates
     - software-properties-common
+    - python-netaddr
 
 - name: Install kernel 3.19
   apt: name=linux-generic-lts-vivid state=latest
