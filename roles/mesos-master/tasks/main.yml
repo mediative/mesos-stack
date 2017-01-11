@@ -30,14 +30,20 @@
 - name: Configure Marathon
   template: src=etc-init-marathon.conf.j2 dest=/etc/init/marathon.conf mode=0644
   notify: Restart master services
-
+- debug: var=chronos_marathon_active
 - name: Configure Chronos
   template: src=etc-init-chronos.conf.j2 dest=/etc/init/chronos.conf mode=0644
   notify: Restart master services
+  when: chronos_marathon_active != "yes"
+
+- name: Start chronos
+  service: name={{item}} state=started enabled=yes
+  with_items:
+    - chronos
+  when: chronos_marathon_active != "yes"
 
 - name: Start master services
   service: name={{item}} state=started enabled=yes
   with_items:
     - marathon
-    - chronos
     - mesos-master
