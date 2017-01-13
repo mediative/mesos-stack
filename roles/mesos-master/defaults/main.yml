@@ -5,7 +5,6 @@
 # version suffixes added by Mesosphere. To install the latest use `latest`,
 # to install latest 0.13 use `0.13`.
 marathon_version: "1.1.4"
-chronos_version: "2.4.0"
 
 # Name of the Mesos cluster.
 cluster_name: "Mesos Stack"
