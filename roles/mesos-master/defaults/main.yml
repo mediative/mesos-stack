@@ -1,5 +1,5 @@
 ---
-# The Marathon and Chronos framework versions
+# The Marathon framework version 
 #
 # A `*` is added after the version when installing, which permits to leave out
 # version suffixes added by Mesosphere. To install the latest use `latest`,
