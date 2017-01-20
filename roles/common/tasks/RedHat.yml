@@ -28,17 +28,17 @@
   changed_when: true
 
 - name: update kernel-firmware
-  get_url: dest=/home/{{ansible_ssh_user}}/kernel-firmware.rpm  url=ftp://fr2.rpmfind.net/linux/centos/6/centosplus/x86_64/Packages/kernel-firmware-2.6.32-642.1.1.el6.centos.plus.noarch.rpm mode=0644
+  get_url: dest=/home/{{ansible_ssh_user}}/kernel-firmware.rpm  url=ftp://fr2.rpmfind.net/linux/centos/6/centosplus/x86_64/Packages/kernel-firmware-2.6.32-642.13.1.el6.centos.plus.noarch.rpm mode=0644
   when: newkernel.changed
 
 - shell: rpm -if /home/{{ansible_ssh_user}}/kernel-firmware.rpm
   when: newkernel.changed
 
 - name: Update kernel
-  yum: name=kernel-debug state=latest
+  yum: name=kernel-debug-2.6.32-642.13.1.el6.x86_64 state=installed
   when: newkernel.changed
 
-- shell: grubby --set-default=/boot/vmlinuz-2.6.32-642.1.1.el6.x86_64.debug
+- shell: grubby --set-default=/boot/vmlinuz-2.6.32-642.13.1.el6.x86_64.debug
   when: newkernel.changed
 
 - shell:  sleep 2 && reboot
