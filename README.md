@@ -12,8 +12,8 @@ The main features are:
 
 To try it out locally use the [Vagrant](vagrant/README.md) configuration.
 
-[![Build Status](https://travis-ci.org/ypg-data/mesos-stack.svg?branch=master)](https://travis-ci.org/ypg-data/mesos-stack)
-[![GitHub release](https://img.shields.io/github/release/ypg-data/mesos-stack.svg)](https://github.com/ypg-data/mesos-stack/releases/latest)
+[![Build Status](https://travis-ci.org/mediative/mesos-stack.svg?branch=master)](https://travis-ci.org/mediative/mesos-stack)
+[![GitHub release](https://img.shields.io/github/release/mediative/mesos-stack.svg)](https://github.com/mediative/mesos-stack/releases/latest)
 
 ## Usage
 
@@ -21,7 +21,7 @@ To use the scripts to build a custom Mesos cluster first install the roles in
 your project:
 
     $ ansible-galaxy install --force --roles-path .ansible \
-        https://github.com/ypg-data/mesos-stack,0.4.0
+        https://github.com/mediative/mesos-stack,0.4.0
 
 and configure Ansible to load roles from the roles directory provided by this
 project.
@@ -35,7 +35,7 @@ roles_path = .ansible/mesos-stack/roles
 Alternatively, you can also use a `requirements.yml` file:
 
 ```yaml
-- src: https://github.com/ypg-data/mesos-stack
+- src: https://github.com/mediative/mesos-stack
   path: .ansible
   version: 0.4.0
 ```
