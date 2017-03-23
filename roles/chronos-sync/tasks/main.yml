@@ -24,4 +24,4 @@
   pip: name=awscli state=present
 
 - name: Setup chronos sync
-  git: repo=https://github.com/mesos/chronos.git dest=/opt/chronos
+  git: repo=https://github.com/mesos/chronos.git dest=/opt/chronos version={{chronos_version}} force=yes

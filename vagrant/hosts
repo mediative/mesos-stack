@@ -6,6 +6,8 @@
 ansible_ssh_user=vagrant
 ansible_domainname=mesos.dev
 marathon_port=8080
+chronos_marathon_active="no"
+chronos_version="2.4.0"
 
 [zookeeper]
 10.141.141.10
