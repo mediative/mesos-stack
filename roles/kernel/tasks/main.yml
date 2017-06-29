@@ -1,0 +1,15 @@
+## Common
+#
+# Install base packages and updates `/etc/hosts` with mappings to all hosts in
+# the cluster.
+---
+- name: Conditionally install Debian packages
+  include: Debian.yml
+  when: ansible_os_family == "Debian"
+  sudo: True
+
+- name: Conditionally install RedHat packages
+  include: RedHat.yml
+  when: ansible_os_family == "RedHat"
+  sudo: True
+
