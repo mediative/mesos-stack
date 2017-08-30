@@ -1,6 +1,6 @@
 ---
 - name: Update APT
-  apt: update_cache=yes cache_valid_time=3600 autoremove=yes
+  apt: update_cache=yes cache_valid_time=3600 autoremove=yes allow_unauthenticated=yes
 
 - name: Install base packages
   apt: name={{item}} state=latest
@@ -10,3 +10,8 @@
     - ca-certificates
     - software-properties-common
     - python-netaddr
+
+- name: remove packages
+  apt: name={{item}} state=absent autoremove=yes purge=yes
+  with_items:
+    - dnsmasq-base

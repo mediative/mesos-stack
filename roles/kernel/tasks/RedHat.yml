@@ -1,7 +1,12 @@
 ---
 - name: Update kernel
-  yum: name=kernel-debug state=latest
+  yum: name=kernel state=latest
   register: newkernel.changed
+
+- name: remove old kernels
+  yum: name={{item}} state=removed
+  with_items:
+    - kernel-3.10.0-327.el7.x86_64
 
 #- shell:  sleep 2 && reboot
 #  when: newkernel.changed

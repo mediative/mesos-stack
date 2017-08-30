@@ -5,7 +5,7 @@
 # and Marathon endpoints.
 ---
 - name: Install PIP
-  apt: name=python-pip state=latest
+  apt: name=python-pip state=installed
   sudo: True
 
 - name: Install DCOS CLI
